@@ -1,0 +1,9 @@
+.dockerignore
+.git/
+.gitignore
+
+coverage/
+spec/
+
+Dockerfile
+README.md
