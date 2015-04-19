@@ -6,7 +6,7 @@ import { SESSION_KEY_HEADER } from 'tabular/constants';
  * This module contains functions for interacting with Users.
  */
 export default {
-  create(username, password, confirmation, options) {
+  create_user(username, password, confirmation, options) {
     reqwest({
       url: '/api/users/',
       method: 'POST',
@@ -38,7 +38,7 @@ export default {
     });
   },
 
-  destroy(session_key, options) {
+  destroy_user(session_key, options) {
     reqwest({
       url: '/api/users/',
       method: 'DELETE',
