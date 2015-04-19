@@ -1,0 +1,28 @@
+{
+  "name": "tabular-frontend",
+  "version": "0.0.0",
+  "authors": [
+    "Tom Hulihan <hulihan.tom159@gmail.com>"
+  ],
+  "description": "Frontend for Tabular",
+  "license": "MIT",
+  "homepage": "https://github.com/nahiluhmot/tabular-frontend",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.13.2",
+    "aviator": "~0.4.2",
+    "reqwest": "~1.1.5",
+    "underscore": "~1.8.3",
+    "requirejs": "~2.1.17"
+  },
+  "devDependencies": {
+    "mocha": "~2.2.4",
+    "chai": "~2.2.0"
+  }
+}
