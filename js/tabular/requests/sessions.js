@@ -21,14 +21,13 @@ export default {
   },
 
   logout(session_key, options) {
-    let headers = {};
-    headers[SESSION_KEY_HEADER] = session_key;
-
     reqwest({
       url: '/api/sessions/',
       method: 'DELETE',
       type: 'json',
-      headers: headers,
+      headers: {
+        [SESSION_KEY_HEADER]: session_key
+      },
       success: options.success,
       error: options.error
     });

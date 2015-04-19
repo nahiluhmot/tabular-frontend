@@ -22,9 +22,6 @@ export default {
   },
 
   update_password(session_key, password, confirmation, options) {
-    let headers = {};
-    headers[SESSION_KEY_HEADER] = session_key;
-
     reqwest({
       url: '/api/users/',
       method: 'PUT',
@@ -33,21 +30,22 @@ export default {
         password: password,
         password_confirmation: confirmation
       },
-      headers: headers,
+      headers: {
+        [SESSION_KEY_HEADER]: session_key
+      },
       success: options.success,
       error: options.error
     });
   },
 
   destroy(session_key, options) {
-    let headers = {};
-    headers[SESSION_KEY_HEADER] = session_key;
-
     reqwest({
       url: '/api/users/',
       method: 'DELETE',
       type: 'json',
-      headers: headers,
+      headers: {
+        [SESSION_KEY_HEADER]: session_key
+      },
       success: options.success,
       error: options.error
     });
