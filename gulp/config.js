@@ -42,7 +42,7 @@ var config = {
     },
     min: {
       src: $(build, 'compile', 'src', '**', '*.js'),
-      dest: $(build, 'public', 'js', 'app')
+      dest: $(build, 'public', 'js')
     },
     vendored: {
       srcs: [
@@ -85,7 +85,7 @@ var config = {
   less: {
     app: {
       src: $(less, '**', '*.less'),
-      dest: $(build, 'public', 'css', 'app'),
+      dest: $(build, 'public', 'css'),
       paths: [$(less, 'includes')]
     },
     vendored: {

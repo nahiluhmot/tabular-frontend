@@ -1,8 +1,6 @@
 requirejs.config({
   baseUrl: '/js/',
   paths: {
-    'tabular': '/js/app/tabular',
-
     'tabular-spec': '/js/spec/tabular-spec',
 
     'aviator': '/js/vendored/aviator',
