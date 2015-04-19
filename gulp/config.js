@@ -30,6 +30,14 @@ var config = {
   clean: {
     dir: build
   },
+  compress: {
+    src: [
+      $(build, 'public', '**', '*.css'),
+      $(build, 'public', '**', '*.html'),
+      $(build, 'public', '**', '*.js')
+    ],
+    dest: $(build, 'public')
+  },
   html: {
     src: $(html, '**', 'index.html'),
     dest: $(build, 'public')
