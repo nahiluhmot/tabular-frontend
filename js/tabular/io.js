@@ -36,7 +36,7 @@ export default {
     options.error = options.callbacks.error;
     options.type = 'json';
 
-    if (typeof options.data === 'object') {
+    if ((typeof options.data === 'object') && (options.method !== 'GET')) {
       options.data = toJSON(options.data);
     }
 
