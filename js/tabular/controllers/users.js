@@ -16,10 +16,6 @@ class Users {
     this.io.requests = new Requests(this.io.request);
   }
 
-  /**
-   * Route handlers.
-   */
-
   signUp(params) {
     const requests = this.io.requests;
     console.log(this.io);
