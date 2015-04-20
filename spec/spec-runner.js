@@ -6,6 +6,7 @@ requirejs.config({
     'aviator': '/js/vendored/aviator',
     'cookies': '/js/vendored/cookies',
     'chai': '/js/vendored/chai',
+    'json': '/js/vendored/json3',
     'mocha': '/js/vendored/mocha',
     'react': '/js/vendored/react',
     'react-with-addons': '/js/vendored/react-with-addons',

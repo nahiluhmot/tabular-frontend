@@ -67,6 +67,10 @@ var config = {
           src: $(bower, 'cookies-js', 'dist', 'cookies.js')
         },
         {
+          name: 'json3',
+          src: $(bower, 'json3', 'lib', 'json3.js')
+        },
+        {
           name: 'mocha',
           src: $(bower, 'mocha', 'mocha.js')
         },
