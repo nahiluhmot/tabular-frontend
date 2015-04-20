@@ -13,61 +13,68 @@ const CONFIRMATION_ID =  `${ID_PREFIX}-password-confirmation`;
 class SignUp extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
   }
 
-  createUser(event) {
-    event.preventDefault();
-
+  createUser() {
     const username = document.getElementById(USERNAME_ID).value;
     const password = document.getElementById(PASSWORD_ID).value;
     const confirmation = document.getElementById(CONFIRMATION_ID).value;
 
     this.props.createUser(username, password, confirmation, {
       success(data) {
-        console.log('Success!');
-        console.log(data.username);
+        console.log(`Created user with username: ${data.username}`);
       },
 
       error(err) {
-        console.log('Error:');
         console.log(err);
       }
     });
   }
 
   render() {
-    return form({ className: 'pure-form pure-form-aligned' },
-             fieldset({},
-               div({ className: 'pure-control-group' },
-                 label({
-                   htmlFor: 'username'
-                 }, 'Username'),
-                 input({
-                   id: USERNAME_ID,
-                   type: 'text',
-                   placeholder: 'Username'
-                 })),
-               div({ className: 'pure-control-group' },
-                 label({
-                   htmlFor: 'password'
-                 }, 'Password'),
-                 input({
-                   id: PASSWORD_ID,
-                   type: 'password',
-                   placeholder: '******'
-                 })),
-               div({ className: 'pure-control-group' },
-                 label({
-                   htmlFor: 'password-confirmation'
-                 }, 'Password Confirmation'),
-                 input({
-                   id: CONFIRMATION_ID,
-                   type: 'password',
-                   placeholder: '******'
-                 })),
-               div({ className: 'pure-control-group' },
-                 button({ onClick: (event) => this.createUser(event) }, 'Submit'))));
+    const component = this;
+
+    const buttonAttributes = {
+      onClick(event) {
+        event.preventDefault();
+        component.createUser();
+      }
+    };
+
+    const tree =
+      form({ className: 'pure-form pure-form-aligned' },
+        fieldset({},
+          div({ className: 'pure-control-group' },
+            label({
+              htmlFor: 'username'
+            }, 'Username'),
+            input({
+              id: USERNAME_ID,
+              type: 'text',
+              placeholder: 'Username'
+            })),
+          div({ className: 'pure-control-group' },
+            label({
+              htmlFor: 'password'
+            }, 'Password'),
+            input({
+              id: PASSWORD_ID,
+              type: 'password',
+              placeholder: '******'
+            })),
+          div({ className: 'pure-control-group' },
+            label({
+              htmlFor: 'password-confirmation'
+            }, 'Password Confirmation'),
+            input({
+              id: CONFIRMATION_ID,
+              type: 'password',
+              placeholder: '******'
+            })),
+          div({ className: 'pure-control-group' },
+            button(buttonAttributes, 'Submit'))));
+
+    return tree;
   }
 }
 
