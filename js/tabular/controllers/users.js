@@ -13,17 +13,11 @@ class Users {
    */
   constructor(io) {
     this.io = io;
-    this.io.requests = new UserRequests(this.io.request);
+    this.requests = new UserRequests(this.io.request);
   }
 
   signUp(params) {
-    const { requests } = this.io;
-
-    this.io.render(SignUp, {
-      createUser(username, password, confirmation, callbacks) {
-        requests.createUser(username, password, confirmation, callbacks);
-      }
-    });
+    this.io.render(SignUp, { requests: this.requests });
   }
 }
 
