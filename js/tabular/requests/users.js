@@ -5,9 +5,13 @@ import { SESSION_KEY_HEADER } from 'tabular/constants';
 /**
  * This module contains functions for interacting with Users.
  */
-export default {
+class Users {
+  constructor(request) {
+    this.request = request;
+  }
+
   create(username, password, confirmation, options) {
-    reqwest({
+    this.request({
       url: '/api/users/',
       method: 'POST',
       type: 'json',
@@ -19,10 +23,10 @@ export default {
       success: options.success,
       error: options.error
     });
-  },
+  }
 
   update_password(session_key, password, confirmation, options) {
-    reqwest({
+    this.request({
       url: '/api/users/',
       method: 'PUT',
       type: 'json',
@@ -36,10 +40,10 @@ export default {
       success: options.success,
       error: options.error
     });
-  },
+  }
 
   destroy(session_key, options) {
-    reqwest({
+    this.request({
       url: '/api/users/',
       method: 'DELETE',
       type: 'json',
@@ -50,4 +54,6 @@ export default {
       error: options.error
     });
   }
-};
+}
+
+export default Users;
