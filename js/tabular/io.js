@@ -2,7 +2,7 @@ import Aviator from 'aviator';
 import { get as getCookie } from 'cookies';
 import { stringify as toJSON } from 'json';
 import { createElement, render } from 'react';
-import { reqwest as request } from 'reqwest';
+import { default as request } from 'reqwest';
 import { pluck } from 'underscore';
 
 import Constants from 'tabular/constants';
@@ -29,11 +29,11 @@ export default {
    * Send an HTTP request.
    */
   request(options) {
-    const [key, { success, error }] = pluck(options, 'sessionKey', 'callbacks');
-
     options.headers = options.headers || {};
-    options.headers[Constants.SESSION_KEY_HEADER] = key;
+    options.headers[Constants.SESSION_KEY_HEADER] = options.key;
     options.headers['Content-Type'] = 'application/json';
+    options.success = options.callbacks.success;
+    options.error = options.callbacks.error;
     options.type = 'json';
 
     if (typeof options.data === 'object') {
@@ -50,7 +50,6 @@ export default {
     const element = createElement(component, params);
     const node = document.getElementById(Constants.ROOT_ELEMENT_ID);
 
-    console.log(node);
     return render(element, node, callback);
   }
 };
