@@ -1,35 +1,35 @@
-import reqwest from 'reqwest';
-
-import { SESSION_KEY_HEADER } from 'tabular/constants';
+import { API_ROOT } from 'tabular/constants';
 
 /**
  * This module contains functions for interacting with Sessions.
  */
-export default {
-  login(username, password, options) {
-    reqwest({
-      url: '/api/sessions/',
+class Sessions {
+  constructor(request) {
+    this.request = request;
+  }
+
+  login(username, password, callbacks) {
+    this.request({
+      url: Sessions.ROOT,
       method: 'POST',
-      type: 'json',
       data: {
         username: username,
         password: password,
       },
-      success: options.success,
-      error: options.error
-    });
-  },
-
-  logout(session_key, options) {
-    reqwest({
-      url: '/api/sessions/',
-      method: 'DELETE',
-      type: 'json',
-      headers: {
-        [SESSION_KEY_HEADER]: session_key
-      },
-      success: options.success,
-      error: options.error
+      callbacks: callbacks
     });
   }
-};
+
+  logout(sessionKey, callbacks) {
+    reqwest({
+      url: Sessions.ROOT,
+      method: 'DELETE',
+      sessionKey: sessionKey,
+      callbacks: callbacks
+    });
+  }
+}
+
+Sessions.ROOT = `${API_ROOT}/sessions`;
+
+export default Sessions;
