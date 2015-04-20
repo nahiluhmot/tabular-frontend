@@ -1,3 +1,3 @@
-import Tabular from 'tabular';
+import { initialize } from 'tabular';
 
-Tabular.initialize();
+initialize();

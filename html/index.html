@@ -11,19 +11,33 @@
       rel='stylesheet'
       type='text/css'>
 
+    <script type='application/javascript'>
+      /**
+       * Configure the application with requirejs.
+       */
+      var require = {
+        baseUrl: '/js/',
+        paths: {
+          'aviator': '/js/vendored/aviator',
+          'cookies': '/js/vendored/cookies',
+          'react': '/js/vendored/react',
+          'react-with-addons': '/js/vendored/react-with-addons',
+          'require': '/js/vendored/require',
+          'reqwest': '/js/vendored/reqwest',
+          'underscore': '/js/vendored/underscore'
+        }
+      };
+    </script>
+
+
     <script
-      data-main='/js/config.js'
+      data-main='/js/main.js'
       src='/js/vendored/require.js'
       type='application/javascript'>
     </script>
   </head>
 
   <body>
-    <script
-      data-main='/js/main.js'
-      type='application/javascript'>
-    </script>
-
     <div id='tabular-main'>
     </div>
   </body>
