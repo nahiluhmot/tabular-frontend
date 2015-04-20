@@ -37,7 +37,7 @@ class Tabs {
 
   updateTab(sessionKey, id, tabData, callbacks) {
     this.request({
-      url: `${Tabs.ROOT}/${id}/`,
+      url: `${Tabs.ROOT}/${id}`,
       method: 'PUT',
       data: tabData,
       sessionKey: sessionKey,
@@ -47,7 +47,7 @@ class Tabs {
 
   destroyTab(sessionKey, id, callbacks) {
     this.request({
-      url: `${Tabs.ROOT}/${id}/`,
+      url: `${Tabs.ROOT}/${id}`,
       method: 'DELETE',
       sessionKey: sessionKey,
       callbacks: callbacks
