@@ -1,73 +1,63 @@
-import reqwest from 'reqwest';
-
-import { SESSION_KEY_HEADER } from 'tabular/constants';
+import { API_ROOT } from 'tabular/constants';
 
 /**
- * This module exports functions for interacting with comments.
+ * This class exports functions for interacting with comments.
  */
-export default {
-  list_by_username(username, options) {
-    reqwest({
-      url: `/api/users/${username}/comments/`,
+class Comments {
+  /**
+   * The constructor accepts a request function so that it may be stubbed out.
+   */
+  constructor(request) {
+    this.request = request;
+  }
+
+  forTab(tabId, callbacks) {
+    this.request({
+      url: Comments.ROOT,
       method: 'GET',
-      type: 'json',
-      success: options.success,
-      error: options.error
-    });
-  },
-
-  list_by_tab_id(id, options) {
-    reqwest({
-      url: `/api/tabs/${id}/comments/`,
-      method: 'GET',
-      type: 'json',
-      success: options.success,
-      error: options.error
-    });
-  },
-
-  create(session_key, id, comment_body, options) {
-    reqwest({
-      url: `/api/tabs/${id}/comments/`,
-      method: 'POST',
-      type: 'json',
-      data: {
-        body: comment_body
-      },
-      headers: {
-        [SESSION_KEY_HEADER]: session_key
-      },
-      success: options.success,
-      error: options.error
-    });
-  },
-
-  update(session_key, id, comment_body, options) {
-    reqwest({
-      url: `/api/comments/${id}/`,
-      method: 'PUT',
-      type: 'json',
-      data: {
-        body: comment_body
-      },
-      headers: {
-        [SESSION_KEY_HEADER]: session_key
-      },
-      success: options.success,
-      error: options.error
-    });
-  },
-
-  destroy(session_key, id, options) {
-    reqwest({
-      url: `/api/comments/${id}/`,
-      method: 'DELETE',
-      type: 'json',
-      headers: {
-        [SESSION_KEY_HEADER]: session_key
-      },
-      success: options.success,
-      error: options.error
+      data: { tabId: tabId },
+      callbacks: callbacks
     });
   }
-};
+
+  create(sessionKey, tabId, commentBody, callbacks) {
+    this.request({
+      url: Comments.ROOT,
+      method: 'POST',
+      data: {
+        tab_id: tabId,
+        body: commentBody
+      },
+      sessionKey: sessionKey,
+      callbacks: callbacks
+    });
+  }
+
+  update(sessionKey, id, commentBody, callbacks) {
+    this.request({
+      url: `${Comment.ROOT}/${id}`,
+      method: 'PUT',
+      data: {
+        body: commentBody
+      },
+      sessionKey: sessionKey,
+      callbacks: callbacks
+    });
+  }
+
+  destroy(sessionKey, id, callbacks) {
+    this.request({
+      url: `/api/comments/${id}/`,
+      method: 'DELETE',
+      sessionKey: sessionKey,
+      callbacks: callbacks
+    });
+  }
+}
+
+/**
+ * The root for User requests.
+ */
+Comments.ROOT = `${API_ROOT}/comments`;
+
+export default Comments;
