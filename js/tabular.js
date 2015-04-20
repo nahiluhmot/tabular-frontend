@@ -1,18 +1,13 @@
-/**
- * This is the main class for the application. It contains setup logic and
- * re-exports its sub modules.
- */
-class Tabular {
-  constructor(element) {
-    this.element = element;
+import Aviator from 'aviator';
+import Routes from 'tabular/routes';
+
+export default {
+  /**
+   * Initialize the App.
+   */
+  initialize() {
+    window.Aviator.setRoutes(Routes);
+    window.Aviator.dispatch();
+    return true;
   }
-}
-
-/**
- * Initialize the App.
- */
-Tabular.initialize = function() {
-  return new Tabular(document.body);
 };
-
-export default Tabular;
