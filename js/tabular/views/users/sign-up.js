@@ -19,9 +19,9 @@ class SignUp extends Component {
   createUser(event) {
     event.preventDefault();
 
-    const username = document.getElementById(USERNAME_ID);
-    const password = document.getElementById(PASSWORD_ID);
-    const confirmation = document.getElementById(CONFIRMATION_ID);
+    const username = document.getElementById(USERNAME_ID).value;
+    const password = document.getElementById(PASSWORD_ID).value;
+    const confirmation = document.getElementById(CONFIRMATION_ID).value;
 
     this.props.createUser(username, password, confirmation, {
       success(data) {
