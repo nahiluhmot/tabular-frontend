@@ -1,70 +1,63 @@
-import reqwest from 'reqwest';
-
-import { SESSION_KEY_HEADER } from 'tabular/constants';
+import { API_ROOT } from 'tabular/constants';
 
 /**
  * This module exports functions for interacting with tabs.
  */
-export default {
-  search(query, page, options) {
-    reqwest({
-      url: '/api/tabs/',
+class Tabs {
+  constructor(request) {
+    this.request = request;
+  }
+
+  searchTabs(query, page, callbacks) {
+    this.request({
+      url: Tabs.ROOT,
       method: 'GET',
       data: { query: query, page: page },
-      type: 'json',
-      success: options.success,
-      error: options.error
-    });
-  },
-
-  create(session_key, tab_body, options) {
-    reqwest({
-      url: '/api/tabs/',
-      method: 'POST',
-      type: 'json',
-      data: tab_body,
-      headers: {
-        [SESSION_KEY_HEADER]: session_key
-      },
-      success: options.success,
-      error: options.error
-    });
-  },
-
-  read(id, options) {
-    reqwest({
-      url: `/api/tabs/${id}/`,
-      method: 'GET',
-      type: 'json',
-      success: options.success,
-      error: options.error
-    });
-  },
-
-  update(session_key, id, tab_options, options) {
-    reqwest({
-      url: `/api/tabs/${id}/`,
-      method: 'PUT',
-      type: 'json',
-      data: tab_options,
-      headers: {
-        [SESSION_KEY_HEADER]: session_key
-      },
-      success: options.success,
-      error: options.error
-    });
-  },
-
-  destroy(session_key, id, options) {
-    reqwest({
-      url: `/api/tabs/${id}/`,
-      method: 'DELETE',
-      type: 'json',
-      headers: {
-        [SESSION_KEY_HEADER]: session_key
-      },
-      success: options.success,
-      error: options.error
+      callbacks: callbacks
     });
   }
-};
+
+  createTab(sessionKey, tabData, callbacks) {
+    this.request({
+      url: Tabs.ROOT,
+      method: 'POST',
+      data: tabData,
+      sessionKey: sessionKey,
+      callbacks: callbacks
+    });
+  }
+
+  readTab(id, callbacks) {
+    this.request({
+      url: `${Tabs.ROOT}/${id}`,
+      method: 'GET',
+      callbacks: callbacks
+    });
+  }
+
+  updateTab(sessionKey, id, tabData, callbacks) {
+    this.request({
+      url: `${Tabs.ROOT}/${id}/`,
+      method: 'PUT',
+      data: tabData,
+      sessionKey: sessionKey,
+      callbacks: callbacks
+    });
+  }
+
+  destroyTab(sessionKey, id, callbacks) {
+    this.request({
+      url: `${Tabs.ROOT}/${id}/`,
+      method: 'DELETE',
+      sessionKey: sessionKey,
+      callbacks: callbacks
+    });
+  }
+}
+
+/**
+ * The root for User requests.
+ */
+Tabs.ROOT = `${API_ROOT}/tabs`;
+
+export default Tabs;
