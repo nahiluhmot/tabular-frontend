@@ -19,7 +19,17 @@ class Users {
   }
 
   signUp() {
-    this.io.render(SignUp, { requests: this.requests });
+    this.io.render(SignUp, {
+      requests: this.requests,
+      success(data) {
+        console.log('success logging in');
+        console.log(data);
+      },
+      error(err) {
+        console.log('failed logging in');
+        console.log(err);
+      }
+    });
   }
 }
 
