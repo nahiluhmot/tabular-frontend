@@ -20,7 +20,8 @@
     "reqwest": "~1.1.5",
     "underscore": "~1.8.3",
     "requirejs": "~2.1.17",
-    "cookies-js": "~1.2.1"
+    "cookies-js": "~1.2.1",
+    "pure": "~0.6.0"
   },
   "devDependencies": {
     "mocha": "~2.2.4",

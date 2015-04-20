@@ -102,7 +102,8 @@ var config = {
     },
     vendored: {
       src: [
-        $(bower, 'mocha', 'mocha.css')
+        $(bower, 'mocha', 'mocha.css'),
+        $(bower, 'pure', 'pure.css')
       ],
       dest: $(build, 'public', 'css', 'vendored')
     },
