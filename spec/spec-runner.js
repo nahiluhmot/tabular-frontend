@@ -4,6 +4,7 @@ requirejs.config({
     'tabular-spec': '/js/spec/tabular-spec',
 
     'aviator': '/js/vendored/aviator',
+    'cookies': '/js/vendored/cookies',
     'chai': '/js/vendored/chai',
     'mocha': '/js/vendored/mocha',
     'react': '/js/vendored/react',
