@@ -1,37 +1,35 @@
-import reqwest from 'reqwest';
-
-import { SESSION_KEY_HEADER } from 'tabular/constants';
+import { API_ROOT } from 'tabular/constants';
 
 /**
- * This module exports functions for interacting with activity logs.
+ * This class has methods for interacting with activity logs.
  */
-export default {
-  frontpage(session_key, page, options) {
-    reqwest({
-      url: '/api/feed/',
-      method: 'GET',
-      type: 'json',
-      data: {
-        page: page
-      },
-      headers: {
-        [SESSION_KEY_HEADER]: session_key
-      },
-      success: options.success,
-      error: options.error
-    });
-  },
+class ActivityLogs {
+  constructor(request) {
+    this.request = request;
+  }
 
-  recent_activity(username, page, options) {
-    reqwest({
-      url: `/api/users/${username}/feed/`,
+  frontpage(sessionKey, page, callbacks) {
+    this.request({
+      url: `${API_ROOT}/feed`,
       method: 'GET',
-      type: 'json',
       data: {
         page: page
       },
-      success: options.success,
-      error: options.error
+      sessionKey: sessionKey,
+      callbacks: callbacks
     });
   }
-};
+
+  recent_activity(username, page, callbacks) {
+    this.request({
+      url: `${API_ROOT}/users/${username}/feed`,
+      method: 'GET',
+      data: {
+        page: page
+      },
+      callbacks: callbacks
+    });
+  }
+}
+
+export default ActivityLogs;
