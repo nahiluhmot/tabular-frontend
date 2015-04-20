@@ -63,6 +63,10 @@ var config = {
           src: $(bower, 'chai', 'chai.js')
         },
         {
+          name: 'cookies-js',
+          src: $(bower, 'cookies-js', 'dist', 'cookies.js')
+        },
+        {
           name: 'mocha',
           src: $(bower, 'mocha', 'mocha.js')
         },
