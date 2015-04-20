@@ -1,5 +1,5 @@
 import SignUp from 'tabular/views/users/sign-up';
-import { default as Requests } from 'tabular/requests/users';
+import { default as UserRequests } from 'tabular/requests/users';
 
 /**
  * This controller handles routes for the Users.
@@ -13,16 +13,15 @@ class Users {
    */
   constructor(io) {
     this.io = io;
-    this.io.requests = new Requests(this.io.request);
+    this.io.requests = new UserRequests(this.io.request);
   }
 
   signUp(params) {
-    const requests = this.io.requests;
-    console.log(this.io);
+    const { requests } = this.io;
 
     this.io.render(SignUp, {
-      createUser() {
-        requests.create.apply(requests, arguments);
+      createUser(username, password, confirmation, callbacks) {
+        requests.createUser(username, password, confirmation, callbacks);
       }
     });
   }
