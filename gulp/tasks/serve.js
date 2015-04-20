@@ -7,5 +7,9 @@ var serve = require('gulp-webserver');
  */
 gulp.task('serve', ['watch'], function() {
   return gulp.src(config.src)
-    .pipe(serve({ port: config.port, open: true }));
+    .pipe(serve({
+      port: config.port,
+      open: true,
+      fallback: 'index.html'
+    }));
 });
