@@ -3,7 +3,7 @@
  */
 
 export default {
-  ROOT_QUERY_SELECTOR: 'tabular-main',
+  ROOT_ELEMENT_ID: 'tabular-main',
   SESSION_KEY_COOKIE: 'session_key',
   SESSION_KEY_HEADER: 'X_TABULAR_SESSION_KEY'
 };
