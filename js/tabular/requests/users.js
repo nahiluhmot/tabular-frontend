@@ -1,59 +1,65 @@
-import reqwest from 'reqwest';
-
-import { SESSION_KEY_HEADER } from 'tabular/constants';
+import { API_ROOT } from 'tabular/constants';
 
 /**
  * This module contains functions for interacting with Users.
  */
 class Users {
+  /**
+   * The constructor accepts a request function so that it may be stubbed out.
+   */
   constructor(request) {
     this.request = request;
   }
 
-  create(username, password, confirmation, options) {
+  /**
+   * Create a user with the given username, password, confirmation, and set of
+   * callbacks.
+   */
+  createUser(username, password, confirmation, callbacks) {
     this.request({
-      url: '/api/users/',
+      url: Users.ROOT,
       method: 'POST',
-      type: 'json',
       data: {
         username: username,
         password: password,
         password_confirmation: confirmation
       },
-      success: options.success,
-      error: options.error
+      callbacks: callbacks
     });
   }
 
-  update_password(session_key, password, confirmation, options) {
+  /**
+   * Update the logged in user's password.
+   */
+  updatePassword(sessionKey, password, confirmation, callbacks) {
     this.request({
-      url: '/api/users/',
+      url: Users.ROOT,
       method: 'PUT',
-      type: 'json',
       data: {
         password: password,
         password_confirmation: confirmation
       },
-      headers: {
-        [SESSION_KEY_HEADER]: session_key
-      },
-      success: options.success,
-      error: options.error
+      sessionKey: sessionKey,
+      callbacks: callbacks
     });
   }
 
-  destroy(session_key, options) {
+  /**
+   * Destroy the logged in user.
+   */
+  destroyUser(sessionKey, callbacks) {
     this.request({
-      url: '/api/users/',
+      url: Users.ROOT,
       method: 'DELETE',
-      type: 'json',
-      headers: {
-        [SESSION_KEY_HEADER]: session_key
-      },
-      success: options.success,
-      error: options.error
+      sessionKey: sessionKey,
+      callbacks: callbacks
     });
   }
 }
+
+/**
+ * The root for these requests.
+ */
+Users.ROOT = `${API_ROOT}/users`;
 
 export default Users;
