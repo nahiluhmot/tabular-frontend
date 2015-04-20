@@ -26,7 +26,7 @@ class SignUp extends Component {
 
     event.preventDefault();
 
-    this.props.requests.createUser(username, password, confirmation, {
+    this.props.requests.users.createUser(username, password, confirmation, {
       success(data) {
         console.log(`Created user with username: ${data.username}`);
       },

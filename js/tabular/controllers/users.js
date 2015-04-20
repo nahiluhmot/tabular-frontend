@@ -13,10 +13,12 @@ class Users {
    */
   constructor(io) {
     this.io = io;
-    this.requests = new UserRequests(this.io.request);
+    this.requests = {
+      users: new UserRequests(this.io.request),
+    };
   }
 
-  signUp(params) {
+  signUp() {
     this.io.render(SignUp, { requests: this.requests });
   }
 }
