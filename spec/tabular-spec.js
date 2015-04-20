@@ -3,10 +3,10 @@ import { expect } from 'chai';
 
 describe('Tabular', () => {
   describe('.initialize', () => {
-    const instance = Tabular.initialize();
+    const result = Tabular.initialize();
 
-    it('returns a new instance of Tabular', () => {
-      expect(instance).to.be.an.instanceof(Tabular);
+    it('returns true', () => {
+      expect(result).to.eq(true);
     });
   });
 });
