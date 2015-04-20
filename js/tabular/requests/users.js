@@ -58,7 +58,7 @@ class Users {
 }
 
 /**
- * The root for these requests.
+ * The root for User requests.
  */
 Users.ROOT = `${API_ROOT}/users`;
 
