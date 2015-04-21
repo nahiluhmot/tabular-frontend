@@ -1,7 +1,9 @@
-import { Component, DOM } from 'react';
+import { Component, createElement, DOM } from 'react';
 import { compact, extend, map, values } from 'underscore';
 
-const { button, div, form, input, label, p } = DOM;
+import Username from 'tabular/views/inputs/username';
+
+const { button, div, form, input, label } = DOM;
 
 /**
  * This class represents the SignUp form.
@@ -42,24 +44,12 @@ class SignUp extends Component {
     return (
       form({},
         this.errorMessage(),
-        this.usernameInput(),
+        createElement(Username, {
+          onChange: (event) => this.usernameChanged(event.target.value)
+        }),
         this.passwordInput(),
         this.confirmationInput(),
         this.submitButton()
-      )
-    );
-  }
-
-  usernameInput() {
-    return (
-      div({ className: 'form-group' },
-        label({}, 'Username'),
-        input({
-          type: 'text',
-          className: 'form-control',
-          placeholder: 'Username',
-          onChange: event => this.usernameChanged(event.target.value)
-        })
       )
     );
   }
