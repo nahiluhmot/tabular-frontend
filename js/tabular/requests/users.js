@@ -12,6 +12,18 @@ class Users {
   }
 
   /**
+   * Get the logged in user.
+   */
+  loggedIn(sessionKey, callbacks) {
+    this.request({
+      url: Users.ROOT,
+      method: 'GET',
+      sessionKey: sessionKey,
+      callbacks: callbacks
+    });
+  }
+
+  /**
    * Create a user with the given username, password, confirmation, and set of
    * callbacks.
    */
