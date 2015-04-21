@@ -13,22 +13,16 @@ class Users {
    */
   constructor(io) {
     this.io = io;
-    this.requests = {
-      users: new UserRequests(this.io.request),
-    };
+    this.users = new UserRequests(this.io.request);
   }
 
   signUp() {
+    const users = this.users;
+
     this.io.render(SignUp, {
-      requests: this.requests,
-      success(data) {
-        console.log('success logging in');
-        console.log(data);
-      },
-      error(err) {
-        console.log('failed logging in');
-        console.log(err);
-      }
+      createUser: (username, password, confirmation, callbacks) =>
+        users.createUser(username, password, confirmation, callbacks),
+      success: () => console.log('success signing up')
     });
   }
 }
