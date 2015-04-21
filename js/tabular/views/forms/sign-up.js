@@ -5,7 +5,7 @@ import Username from 'tabular/views/inputs/username';
 import Password from 'tabular/views/inputs/password';
 import Confirmation from 'tabular/views/inputs/confirmation';
 
-const { button, div, form, input, label } = DOM;
+const { button, div, form } = DOM;
 
 /**
  * This class represents the SignUp form.
