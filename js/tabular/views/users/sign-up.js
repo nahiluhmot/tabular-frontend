@@ -2,6 +2,7 @@ import { Component, createElement, DOM } from 'react';
 import { compact, extend, map, values } from 'underscore';
 
 import Username from 'tabular/views/inputs/username';
+import Password from 'tabular/views/inputs/password';
 
 const { button, div, form, input, label } = DOM;
 
@@ -47,23 +48,11 @@ class SignUp extends Component {
         createElement(Username, {
           onChange: (event) => this.usernameChanged(event.target.value)
         }),
-        this.passwordInput(),
+        createElement(Password, {
+          onChange: (event) => this.passwordChanged(event.target.value)
+        }),
         this.confirmationInput(),
         this.submitButton()
-      )
-    );
-  }
-
-  passwordInput() {
-    return (
-      div({ className: 'form-group' },
-        label({ className: 'control-label' }, 'Password'),
-        input({
-          type: 'password',
-          className: 'form-control',
-          placeholder: 'Password',
-          onChange: event => this.passwordChanged(event.target.value)
-        })
       )
     );
   }

@@ -1,6 +1,6 @@
 import { Component, createElement, DOM } from 'react';
-import { compact, extend, map, values } from 'underscore';
 
+import Password from 'tabular/views/inputs/password';
 import Username from 'tabular/views/inputs/username';
 
 const { button, div, form, input, label } = DOM;
@@ -38,24 +38,12 @@ class Login extends Component {
             username: event.target.value
           })
         }),
-        this.passwordInput(),
-        this.submitButton()
-      )
-    );
-  }
-
-  passwordInput() {
-    return (
-      div({ className: 'form-group' },
-        label({ className: 'control-label' }, 'Password'),
-        input({
-          type: 'password',
-          className: 'form-control',
-          placeholder: 'Password',
-          onChange: event => this.setState({
+        createElement(Password, {
+          onChange: (event) => this.setState({
             password: event.target.value
           })
-        })
+        }),
+        this.submitButton()
       )
     );
   }
