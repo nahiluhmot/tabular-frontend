@@ -5,7 +5,8 @@ import IO from 'tabular/io';
 export default {
   '/users': {
     target: new Users(IO),
-    '/create': 'signUp'
+    '/create': 'signUp',
+    '/edit': 'changePassword'
   },
   '/sessions': {
     target: new Sessions(IO),

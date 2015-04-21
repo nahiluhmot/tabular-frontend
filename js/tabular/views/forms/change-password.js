@@ -1,5 +1,5 @@
 import { Component, createElement, DOM } from 'react';
-import { extend, identity, map, pairs, size, select } from 'underscore';
+import { extend, identity, map, omit, pairs, pick, size } from 'underscore';
 
 import Password from 'tabular/views/inputs/password';
 import Confirmation from 'tabular/views/inputs/confirmation';
@@ -8,13 +8,6 @@ import validatePassword from 'tabular/validators/password';
 import validateConfirmation from 'tabular/validators/confirmation';
 
 const { button, div, form, input, label } = DOM;
-
-const validate = ({ password, confirmation }) => {
-  return select({
-    'Password': validatePassword(password),
-    'Password Confirmation': validateConfirmation(password, confirmation),
-  }, identity);
-};
 
 /**
  * This form is used to change a logged in user's password.
@@ -49,7 +42,7 @@ class ChangePassword extends Component {
   }
 
   render() {
-    const errors = extend({}, validate(this.state), this.state.errors);
+    const errors = this.validate();
     const isValid = size(errors) === 0;
 
     return (
@@ -72,9 +65,23 @@ class ChangePassword extends Component {
   }
 
   errorMessage(errors) {
-    const [field, message] = pairs(errors)[0];
+    const { password, confirmation } = this.state;
+    let normalizedErrors = errors;
+    let pair;
 
-    return div({ className: 'alert alert-danger' }, `${field} ${message}`);
+    if (password === '') {
+      normalizedErrors = omit(normalizedErrors, 'Password');
+    }
+
+    if (confirmation === '') {
+      normalizedErrors = omit(normalizedErrors, 'Password Confirmation');
+    }
+
+    pair = pairs(normalizedErrors)[0];
+
+    if (pair) {
+      return div({ className: 'alert alert-danger' }, pair.join(' '));
+    }
   }
 
   submitButton(isValid) {
@@ -87,14 +94,22 @@ class ChangePassword extends Component {
     return button(options, 'Change Password');
   }
 
+  validate() {
+    const { password, confirmation, errors } = this.state;
+    return extend({}, errors, pick({
+      'Password': validatePassword(password),
+      'Password Confirmation': validateConfirmation(password, confirmation),
+    }, identity));
+  }
+
   changePassword(event) {
     const { changePassword: request, login, success } = this.props;
-    const { password, confirmation } = this.state;
+    const { oldPassword, password, confirmation } = this.state;
 
     event.preventDefault();
 
     login(oldPassword, {
-      succcess: () =>
+      success: () =>
         this.setState({ errors: {} }, () =>
           request(password, confirmation, {
             success: success,
