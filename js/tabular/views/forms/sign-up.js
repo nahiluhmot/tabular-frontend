@@ -5,6 +5,10 @@ import Username from 'tabular/views/inputs/username';
 import Password from 'tabular/views/inputs/password';
 import Confirmation from 'tabular/views/inputs/confirmation';
 
+import validateUsername from 'tabular/validators/username';
+import validatePassword from 'tabular/validators/password';
+import validateConfirmation from 'tabular/validators/confirmation';
+
 const { button, div, form } = DOM;
 
 /**
@@ -132,35 +136,17 @@ class SignUp extends Component {
   }
 
   validateUsername(username) {
-    let message = null;
-
-     if (username.length < 1) {
-       message = 'may not be empty';
-     } else if (!username.match(/^[a-zA-Z0-9_]+$/)) {
-       message = 'may only contain letters, numbers, and underscores';
-     }
-
-     return { Username: message };
+     return { Username: validateUsername(username) };
   }
 
   validatePassword(password) {
-    let message = null;
-
-    if ((password || '').length < 8) {
-      message = 'must be at least 8 characters';
-    }
-
-    return { Password: message };
+    return { Password: validatePassword(password) };
   }
 
   validateConfirmation(password, confirmation) {
-    let message = null;
-
-    if (password !== confirmation) {
-      message = 'must match the password';
-    }
-
-    return { 'Password Confirmation': message };
+    return {
+      'Password Confirmation': validateConfirmation(password, confirmation)
+    };
   }
 
   validate({ username, password, confirmation }) {
