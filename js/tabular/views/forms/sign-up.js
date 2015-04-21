@@ -3,6 +3,7 @@ import { compact, extend, map, values } from 'underscore';
 
 import Username from 'tabular/views/inputs/username';
 import Password from 'tabular/views/inputs/password';
+import Confirmation from 'tabular/views/inputs/confirmation';
 
 const { button, div, form, input, label } = DOM;
 
@@ -46,27 +47,15 @@ class SignUp extends Component {
       form({},
         this.errorMessage(),
         createElement(Username, {
-          onChange: (event) => this.usernameChanged(event.target.value)
+          onChange: event => this.usernameChanged(event.target.value)
         }),
         createElement(Password, {
-          onChange: (event) => this.passwordChanged(event.target.value)
+          onChange: event => this.passwordChanged(event.target.value)
         }),
-        this.confirmationInput(),
-        this.submitButton()
-      )
-    );
-  }
-
-  confirmationInput() {
-    return (
-      div({ className: 'form-group' },
-        label({ className: 'control-label' }, 'Confirmation'),
-        input({
-          type: 'password',
-          className: 'form-control',
-          placeholder: 'Confirmation',
+        createElement(Confirmation, {
           onChange: event => this.confirmationChanged(event.target.value)
-        })
+        }),
+        this.submitButton()
       )
     );
   }

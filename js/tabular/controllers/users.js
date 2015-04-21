@@ -1,4 +1,4 @@
-import SignUp from 'tabular/views/users/sign-up';
+import SignUp from 'tabular/views/forms/sign-up';
 import { default as UserRequests } from 'tabular/requests/users';
 
 /**

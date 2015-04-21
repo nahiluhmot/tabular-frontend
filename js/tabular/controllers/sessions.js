@@ -1,4 +1,4 @@
-import Login from 'tabular/views/sessions/login';
+import Login from 'tabular/views/forms/login';
 import { default as SessionsRequests } from 'tabular/requests/sessions';
 
 /**
