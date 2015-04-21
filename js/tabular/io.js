@@ -1,5 +1,5 @@
 import Aviator from 'aviator';
-import { get as getCookie } from 'cookies';
+import Cookies from 'cookies';
 import { stringify as toJSON } from 'json';
 import { createElement, render } from 'react';
 import { default as request } from 'reqwest';
@@ -15,7 +15,7 @@ export default {
    * Get the session key for the logged in user.
    */
   getSessionKey() {
-    return getCookie(Constants.SESSION_KEY_COOKIE);
+    return Cookies.get(Constants.SESSION_KEY_COOKIE);
   },
 
   /**
@@ -30,7 +30,7 @@ export default {
    */
   request(options) {
     options.headers = options.headers || {};
-    options.headers[Constants.SESSION_KEY_HEADER] = options.key;
+    options.headers[Constants.SESSION_KEY_HEADER] = options.sessionKey;
     options.headers['Content-Type'] = 'application/json';
     options.success = options.callbacks.success;
     options.error = options.callbacks.error;

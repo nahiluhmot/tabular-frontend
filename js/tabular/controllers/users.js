@@ -7,7 +7,6 @@ import { default as UserRequests } from 'tabular/requests/users';
 class Users {
   /**
    * Expected expected IO functions:
-   *   - getSessionKey(): Get the session key.
    *   - render(component, params, callback): Render the React view.
    *   - request(options): Send an HTTP request.
    */
