@@ -1,28 +1,29 @@
-import { Component, DOM } from 'react';
-
-const { div, input, label } = DOM;
+import Base from 'tabular/views/inputs/base';
+import { extend } from 'underscore';
 
 /**
- * This class represents a Password Confirmation input field.
+ * This class represents a Confirmation input field.
  */
-class Confirmation extends Component {
+class Confirmation extends Base {
+  /**
+   * Create a new Confirmation input field.
+   *
+   * Props:
+   *   - className: Optional CSS class name.
+   *   - onChange:  Callback to perform when the input changes.
+   */
   constructor(props) {
     super(props);
   }
-
-  render() {
-    return (
-      div({ className: 'form-group' },
-        label({}, 'Confirmation'),
-        input({
-          type: 'password',
-          className: 'form-control',
-          placeholder: 'Confirmation',
-          onChange: this.props.onChange
-        })
-      )
-    );
-  }
 }
+
+/**
+ * Default prop attributes for the input field.
+ */
+Confirmation.defaultProps = {
+  label: 'Confirmation',
+  placeholder: 'Confirmation',
+  type: 'password'
+};
 
 export default Confirmation;

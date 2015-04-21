@@ -1,28 +1,29 @@
-import { Component, DOM } from 'react';
-
-const { div, input, label } = DOM;
+import Base from 'tabular/views/inputs/base';
+import { extend } from 'underscore';
 
 /**
  * This class represents a Password input field.
  */
-class Password extends Component {
+class Password extends Base {
+  /**
+   * Create a new Password input field.
+   *
+   * Props:
+   *   - className: Optional CSS class name.
+   *   - onChange:  Callback to perform when the input changes.
+   */
   constructor(props) {
     super(props);
   }
-
-  render() {
-    return (
-      div({ className: 'form-group' },
-        label({}, 'Password'),
-        input({
-          type: 'password',
-          className: 'form-control',
-          placeholder: 'Password',
-          onChange: this.props.onChange
-        })
-      )
-    );
-  }
 }
+
+/**
+ * Default prop attributes for the input field.
+ */
+Password.defaultProps = {
+  label: 'Password',
+  placeholder: 'Password',
+  type: 'password'
+};
 
 export default Password;

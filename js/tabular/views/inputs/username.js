@@ -1,28 +1,29 @@
-import { Component, DOM } from 'react';
-
-const { div, input, label } = DOM;
+import Base from 'tabular/views/inputs/base';
+import { extend } from 'underscore';
 
 /**
  * This class represents a Username input field.
  */
-class Username extends Component {
+class Username extends Base {
+  /**
+   * Create a new Username input field.
+   *
+   * Props:
+   *   - className: Optional CSS class name.
+   *   - onChange:  Callback to perform when the input changes.
+   */
   constructor(props) {
     super(props);
   }
-
-  render() {
-    return (
-      div({ className: 'form-group' },
-        label({}, 'Username'),
-        input({
-          type: 'text',
-          className: 'form-control',
-          placeholder: 'Username',
-          onChange: this.props.onChange
-        })
-      )
-    );
-  }
 }
+
+/**
+ * Default props for the Username.
+ */
+Username.defaultProps = {
+  label: 'Username',
+  placeholder: 'Username',
+  type: 'text'
+};
 
 export default Username;
