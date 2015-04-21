@@ -59,6 +59,10 @@ var config = {
           src: $(bower, 'aviator', 'aviator.js')
         },
         {
+          name: 'bootstrap',
+          src: $(bower, 'bootstrap', 'dist', 'js', 'bootstrap.js'),
+        },
+        {
           name: 'chai',
           src: $(bower, 'chai', 'chai.js')
         },
@@ -69,6 +73,10 @@ var config = {
         {
           name: 'json3',
           src: $(bower, 'json3', 'lib', 'json3.js')
+        },
+        {
+          name: 'jquery',
+          src: $(bower, 'jquery', 'dist', 'jquery.js'),
         },
         {
           name: 'mocha',
@@ -103,8 +111,14 @@ var config = {
     vendored: {
       src: [
         $(bower, 'mocha', 'mocha.css'),
-        $(bower, 'pure', 'pure.css')
-      ],
+        $(bower, 'bootstrap', 'dist', 'css', 'bootstrap.min.css'),
+        $(bower, 'bootstrap', 'dist', 'css', 'bootstrap-theme.min.css')
+      ].concat(
+        isProductionBuild ? [] : [
+          $(bower, 'bootstrap', 'dist', 'css', 'bootstrap.min.css.map'),
+          $(bower, 'bootstrap', 'dist', 'css', 'bootstrap-theme.min.css.map')
+        ]
+      ),
       dest: $(build, 'public', 'css', 'vendored')
     },
   },
