@@ -14,16 +14,12 @@ export default {
   /**
    * Get the session key for the logged in user.
    */
-  getSessionKey() {
-    return Cookies.get(Constants.SESSION_KEY_COOKIE);
-  },
+  getSessionKey: () => Cookies.get(Constants.SESSION_KEY_COOKIE),
 
   /**
    * Navigate to the given route.
    */
-  navigate(route, params) {
-    return Aviator.navigate(route, params);
-  },
+  navigate: (route, params) => Aviator.navigate(route, params),
 
   /**
    * Send an HTTP request.
