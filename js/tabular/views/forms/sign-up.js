@@ -22,9 +22,9 @@ class SignUp extends Component {
    * State:
    *   - username:     String that represents the username, validated on input
    *                   change or submit.
-   *   - password:     String that represents the username, validated on input
+   *   - password:     String that represents the password, validated on input
    *                   change or submit.
-   *   - confrimation: String that represents the password, validated on input
+   *   - confirmation: String that represents the confirmation, validated on input
    *                   change or submit.
    *   - errors:       Object of errors with human readable keys and errors and
    *                   error messages.
