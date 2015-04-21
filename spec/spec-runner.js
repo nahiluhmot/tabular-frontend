@@ -8,7 +8,6 @@ requirejs.config({
     'chai': '/js/vendored/chai',
     'json': '/js/vendored/json3',
     'mocha': '/js/vendored/mocha',
-    'react': '/js/vendored/react',
     'react-with-addons': '/js/vendored/react-with-addons',
     'require': '/js/vendored/require',
     'reqwest': '/js/vendored/reqwest',

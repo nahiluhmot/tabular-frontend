@@ -75,10 +75,6 @@ var config = {
           src: $(bower, 'mocha', 'mocha.js')
         },
         {
-          name: 'react',
-          src: $(bower, 'react', 'react.js')
-        },
-        {
           name: 'react-with-addons',
           src: $(bower, 'react', 'react-with-addons.js')
         },
