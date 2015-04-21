@@ -1,7 +1,6 @@
-import { addons, Component, DOM } from 'react';
+import { Component, DOM } from 'react';
 import { compact, extend, map, values } from 'underscore';
 
-const { createFragment } = addons;
 const { button, div, fieldset, form, input, p } = DOM;
 
 /**
