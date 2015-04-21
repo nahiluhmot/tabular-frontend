@@ -1,7 +1,7 @@
 import { Component, DOM } from 'react';
 import { compact, extend, map, values } from 'underscore';
 
-const { button, div, fieldset, form, input, p } = DOM;
+const { button, div, form, input, label, p } = DOM;
 
 /**
  * This class represents the SignUp form.
@@ -24,20 +24,124 @@ class SignUp extends Component {
    *                   change or submit.
    *   - errors:       Object of errors with human readable keys and errors and
    *                   error messages.
+   *   - validate:     Boolean flag which denotes whether or not errors are
+   *                   displayed.
    */
   constructor(props) {
     super(props);
     this.state = {
-      username: null,
-      password: null,
-      confirmation: null,
-      errors: {}
+      username: '',
+      password: '',
+      confirmation: '',
+      errors: {},
+      validate: false
     };
   }
 
-  /**
-   * IO calls (from the props).
-   */
+  render() {
+    return (
+      form({},
+        this.errorMessage(),
+        this.usernameInput(),
+        this.passwordInput(),
+        this.confirmationInput(),
+        this.submitButton()
+      )
+    );
+  }
+
+  usernameInput() {
+    return (
+      div({ className: 'form-group' },
+        label({}, 'Username'),
+        input({
+          type: 'text',
+          className: 'form-control',
+          placeholder: 'Username',
+          onChange: event => this.usernameChanged(event.target.value)
+        })
+      )
+    );
+  }
+
+  passwordInput() {
+    return (
+      div({ className: 'form-group' },
+        label({ className: 'control-label' }, 'Password'),
+        input({
+          type: 'password',
+          className: 'form-control',
+          placeholder: 'Password',
+          onChange: event => this.passwordChanged(event.target.value)
+        })
+      )
+    );
+  }
+
+  confirmationInput() {
+    return (
+      div({ className: 'form-group' },
+        label({ className: 'control-label' }, 'Confirmation'),
+        input({
+          type: 'password',
+          className: 'form-control',
+          placeholder: 'Confirmation',
+          onChange: event => this.confirmationChanged(event.target.value)
+        })
+      )
+    );
+  }
+
+  submitButton() {
+    const options = {
+      className: 'btn btn-primary',
+      onClick: event => this.createUser(event)
+    };
+
+    return button(options, 'Sign Up');
+  }
+
+  errorMessage() {
+    if (this.state.validate) {
+      return compact(map(this.state.errors, (message, field) => {
+        if (message) {
+          const options = { key: field, className: 'alert alert-danger' };
+          return div(options, `${field} ${message}`);
+        }
+      }))[0];
+    }
+  }
+
+  usernameChanged(username) {
+    this.setState({
+      username: username,
+      errors: extend({},
+        this.state.errors,
+        this.validateUsername(username)
+      )
+    });
+  }
+
+  passwordChanged(password) {
+    this.setState({
+      password: password,
+      errors: extend({},
+        this.state.errors,
+        this.validatePassword(password),
+        this.validateConfirmation(password, this.state.confirmation)
+      )
+    });
+  }
+
+  confirmationChanged(confirmation) {
+    this.setState({
+      confirmation: confirmation,
+      errors: extend({},
+        this.state.errors,
+        this.validateConfirmation(this.state.password, confirmation)
+      )
+    });
+  }
 
   createUser(event) {
     const { createUser: request, success } = this.props;
@@ -49,23 +153,22 @@ class SignUp extends Component {
     if (compact(values(errors)).length === 0) {
       request(username, password, confirmation, {
         success: success,
-        error: error => this._handleCreateError(error)
+        error: error => this.handleCreateError(error)
       });
     } else {
       this.setState({
-        errors: extend({}, this.state.errors, errors)
+        errors: extend({}, this.state.errors, errors),
+        validate: true
       });
     }
   }
 
-  /**
-   * Validation methods.
-   */
-
   validateUsername(username) {
     let message = null;
 
-     if (!(username || '').match(/^[a-zA-Z0-9_]+$/)) {
+     if (username.length < 1) {
+       message = 'may not be empty';
+     } else if (!username.match(/^[a-zA-Z0-9_]+$/)) {
        message = 'may only contain letters, numbers, and underscores';
      }
 
@@ -100,84 +203,7 @@ class SignUp extends Component {
     );
   }
 
-  /**
-   * Stateful functions.
-   */
-
-  usernameChanged(username) {
-    this.setState({
-      username: username,
-      errors: extend({},
-        this.state.errors,
-        this.validateUsername(username)
-      )
-    });
-  }
-
-  passwordChanged(password) {
-    this.setState({
-      password: password,
-      errors: extend({},
-        this.state.errors,
-        this.validatePassword(password),
-        this.validateConfirmation(password, this.state.confirmation)
-      )
-    });
-  }
-
-  confirmationChanged(confirmation) {
-    this.setState({
-      confirmation: confirmation,
-      errors: extend({},
-        this.state.errors,
-        this.validateConfirmation(this.state.password, confirmation)
-      )
-    });
-  }
-
-  /**
-   * Pure render function.
-   */
-
-  render() {
-    return form({ className: 'pure-form' },
-             fieldset({ className: 'pure-group' },
-               input({
-                 type: 'text',
-                 placeholder: 'Username',
-                 required: true,
-                 onChange: event => this.usernameChanged(event.target.value)
-               }),
-               input({
-                 type: 'password',
-                 placeholder: 'Password',
-                 required: true,
-                 onChange: event => this.passwordChanged(event.target.value)
-               }),
-               input({
-                 type: 'password',
-                 placeholder: 'Password Confirmation',
-                 required: true,
-                 onChange: event => this.confirmationChanged(event.target.value)
-               })
-             ),
-             button({ onClick: event => this.createUser(event) }, 'Sign Up'),
-             this._showErrors());
-  }
-
-  /**
-   * Private helpers.
-   */
-
-  _showErrors() {
-    const messages =
-      map(this.state.errors, (message, field) =>
-        (message && field) ? p({ key: field }, `${field} ${message}`) : null);
-
-    return compact(messages);
-  }
-
-  _handleCreateError(error) {
+  handleCreateError(error) {
     let messages = {};
 
     if (error.status === 400) {
@@ -189,6 +215,7 @@ class SignUp extends Component {
     }
 
     this.setState({
+      validate: true,
       errors: extend({}, this.state.errors, messages)
     });
   }
