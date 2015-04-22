@@ -12,9 +12,9 @@ class Search extends Component {
    * Props:
    *   - search: Function that accepts a query and performs a search.
    * State:
-   *   - query: String that corresponds to the data in the serach box.
+   *   - query: String that corresponds to the data in the search box.
    */
-  contsructor(props) {
+  constructor(props) {
     super(props);
     this.state = { query: '' };
   }
