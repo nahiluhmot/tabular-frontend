@@ -1,6 +1,10 @@
 import { extend } from 'underscore';
 
+import { LINKS } from 'tabular/constants';
+
 import Home from 'tabular/views/pages/home';
+import SignUp from 'tabular/views/pages/sign-up';
+
 import Users from 'tabular/requests/users';
 import Sessions from 'tabular/requests/sessions';
 
@@ -38,6 +42,22 @@ class Root {
         console.log(`No signed in user: "${sessionKey}"`);
         props.signedIn = false;
         this.io.render(Home, props);
+      }
+    });
+  }
+
+  signUp() {
+    this.io.render(SignUp, {
+      search: query => {
+        console.log(`Searched for ${query}`);
+      },
+      signedIn: false,
+      createUser: (username, password, confirmation, callbacks) => {
+        this.users.createUser(username, password, confirmation, callbacks);
+      },
+      success: ({ username }) => {
+        console.log(this);
+        this.io.navigate(LINKS.profile);
       }
     });
   }

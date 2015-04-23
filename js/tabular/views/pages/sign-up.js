@@ -1,17 +1,17 @@
 import { Component, createElement, DOM } from 'react';
 
 import NavBar from 'tabular/views/navs/nav-bar';
-import Search from 'tabular/views/forms/search';
+import SignUpForm from 'tabular/views/forms/sign-up';
 
 const { div, h1, p } = DOM;
 
 /**
- * This class represents homepage.
+ * This class represents sign up page.
  */
-class Home extends Component {
+class SignUp extends Component {
   /**
    * Create a new Home page. It requires all of the props required by the
-   * NavBar and Search form.
+   * Nav and SignUpForm.
    */
   constructor(props) {
     super(props);
@@ -22,12 +22,10 @@ class Home extends Component {
       div({},
         createElement(NavBar, this.props),
         div({ className: 'container center' },
-          h1({}, 'Tabular'),
-          p({ className: 'lead' },
-            'Guitar tabs without the ads'),
-          createElement(Search, this.props)));
+          h1({}, 'Sign Up!'),
+          createElement(SignUpForm, this.props)));
     return tree;
   }
 }
 
-export default Home;
+export default SignUp;
