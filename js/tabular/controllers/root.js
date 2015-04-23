@@ -21,72 +21,48 @@ class Root {
    */
   constructor(io) {
     this.io = io;
-    this.users = new Users(this.io.request);
-    this.sessions = new Sessions(this.io.request);
+    this.sessions = new Sessions(io.request);
+    this.users = new Users(io.request);
   }
 
   home() {
     const sessionKey = this.io.getSessionKey();
-    const props = {
-      search: query => {
-        console.log(`searched for ${query}`);
-      }
-    };
+    const props = { search: this.search };
 
-    this.users.loggedIn(sessionKey, {
-      success: ({ username }) => {
-        console.log(`Signed in: ${username} with key ${sessionKey}`);
-        props.signedIn = true;
-        this.io.render(Home, props);
-      },
-      error: () => {
-        console.log(`No signed in user: "${sessionKey}"`);
-        props.signedIn = false;
-        this.io.render(Home, props);
-      }
-    });
+    this.render(Home, {});
   }
 
   login() {
-    this.io.render(Login, {
-      search: query => {
-        console.log(`Searched for ${query}`);
-      },
-      signedIn: false,
-      login: (username, password, callbacks) => {
-        this.sessions.login(username, password, callbacks);
-      },
-      success: (data) => {
-        console.log('Logged in');
-        console.log(data);
-        this.io.navigate(LINKS.profile);
-      }
+    this.render(Login, {
+      login: (username, password, callbacks) =>
+        this.sessions.login(username, password, callbacks),
+      success: () => this.io.navigate(LINKS.profile)
     });
   }
 
   logout() {
     const key = this.io.getSessionKey();
-    const complete = () => this.io.navigate(LINKS.home);
     this.sessions.logout(key, {
-      success: complete,
-      failure: complete
+      complete: () => this.io.navigate(LINKS.home)
     });
   }
 
   signUp() {
-    this.io.render(SignUp, {
-      search: query => {
-        console.log(`Searched for ${query}`);
-      },
-      signedIn: false,
-      createUser: (username, password, confirmation, callbacks) => {
-        this.users.createUser(username, password, confirmation, callbacks);
-      },
-      success: (data) => {
-        console.log('Created user');
-        console.log(data);
-        this.io.navigate(LINKS.profile);
-      }
+    this.render(SignUp, {
+      createUser: (username, password, confirmation, callbacks) =>
+        this.users.createUser(username, password, confirmation, callbacks),
+      success: (data) => this.io.navigate(LINKS.profile)
+    });
+  }
+
+  render(type, props) {
+    props.search = query =>
+      this.io.navigate(LINKS.search, { queryParams: { query: query } });
+
+    this.users.loggedIn(this.io.getSessionKey(), {
+      success: () => props.signedIn = true,
+      error: () => props.signedIn = false,
+      complete: () => this.io.render(type, props)
     });
   }
 }

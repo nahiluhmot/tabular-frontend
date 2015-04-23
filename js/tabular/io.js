@@ -30,6 +30,7 @@ export default {
     options.headers['Content-Type'] = 'application/json';
     options.success = options.callbacks.success;
     options.error = options.callbacks.error;
+    options.complete = options.callbacks.complete;
     options.type = 'json';
 
     if ((typeof options.data === 'object') && (options.method !== 'GET')) {
