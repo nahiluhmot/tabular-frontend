@@ -3,6 +3,7 @@ import { extend } from 'underscore';
 import { LINKS } from 'tabular/constants';
 
 import Home from 'tabular/views/pages/home';
+import Login from 'tabular/views/pages/login';
 import SignUp from 'tabular/views/pages/sign-up';
 
 import Users from 'tabular/requests/users';
@@ -46,17 +47,18 @@ class Root {
     });
   }
 
-  signUp() {
-    this.io.render(SignUp, {
+  login() {
+    this.io.render(Login, {
       search: query => {
         console.log(`Searched for ${query}`);
       },
       signedIn: false,
-      createUser: (username, password, confirmation, callbacks) => {
-        this.users.createUser(username, password, confirmation, callbacks);
+      login: (username, password, callbacks) => {
+        this.sessions.login(username, password, callbacks);
       },
-      success: ({ username }) => {
-        console.log(this);
+      success: (data) => {
+        console.log('Logged in');
+        console.log(data);
         this.io.navigate(LINKS.profile);
       }
     });
@@ -68,6 +70,23 @@ class Root {
     this.sessions.logout(key, {
       success: complete,
       failure: complete
+    });
+  }
+
+  signUp() {
+    this.io.render(SignUp, {
+      search: query => {
+        console.log(`Searched for ${query}`);
+      },
+      signedIn: false,
+      createUser: (username, password, confirmation, callbacks) => {
+        this.users.createUser(username, password, confirmation, callbacks);
+      },
+      success: (data) => {
+        console.log('Created user');
+        console.log(data);
+        this.io.navigate(LINKS.profile);
+      }
     });
   }
 }
