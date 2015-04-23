@@ -19,7 +19,7 @@ export default {
   /**
    * Navigate to the given route.
    */
-  navigate: (route, params) => Aviator.navigate(route, params),
+  navigate: (route, params) => window.Aviator.navigate(route, params),
 
   /**
    * Send an HTTP request.

@@ -21,7 +21,7 @@ class Sessions {
   }
 
   logout(sessionKey, callbacks) {
-    reqwest({
+    this.request({
       url: Sessions.ROOT,
       method: 'DELETE',
       sessionKey: sessionKey,

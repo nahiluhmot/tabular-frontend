@@ -4,11 +4,12 @@ import Sessions from 'tabular/controllers/sessions';
 import Users from 'tabular/controllers/users';
 import IO from 'tabular/io';
 
-const { home, signUp } = LINKS;
+const { home, logout, signUp } = LINKS;
 
 export default {
   target: new Root(IO),
   [home]: 'home',
+  [logout]: 'logout',
   [signUp]: 'signUp',
   '/users': {
     target: new Users(IO),

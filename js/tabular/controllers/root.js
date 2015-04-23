@@ -61,6 +61,15 @@ class Root {
       }
     });
   }
+
+  logout() {
+    const key = this.io.getSessionKey();
+    const complete = () => this.io.navigate(LINKS.home);
+    this.sessions.logout(key, {
+      success: complete,
+      failure: complete
+    });
+  }
 }
 
 export default Root;
