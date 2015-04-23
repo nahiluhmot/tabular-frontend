@@ -1,5 +1,8 @@
+import { extend } from 'underscore';
+
 import Home from 'tabular/views/pages/home';
-import Tabs from 'tabular/requests/tabs';
+import Users from 'tabular/requests/users';
+import Sessions from 'tabular/requests/sessions';
 
 /**
  * This is the top level controller for the application.
@@ -13,14 +16,39 @@ class Root {
    */
   constructor(io) {
     this.io = io;
+    this.users = new Users(this.io.request);
+    this.sessions = new Sessions(this.io.request);
   }
 
   home() {
-    this.io.render(Home, {
-      signUpLink: '#sign-up',
-      loginLink: '#login',
+    const sessionKey = this.io.getSessionKey();
+    let props = {
+      home: '/',
       search: query => {
         console.log(`searched for ${query}`);
+      }
+    };
+
+    this.users.loggedIn(sessionKey, {
+      success: ({ username }) => {
+        console.log(`Signed in: ${username} with key ${sessionKey}`);
+        props = extend({}, props, {
+          logout: '/logout',
+          profile: '/profile',
+          signedIn: true
+        });
+
+        this.io.render(Home, props);
+      },
+      error: () => {
+        console.log(`No signed in user: "${sessionKey}"`);
+        props = extend({}, props, {
+          login: '/login',
+          signUp: '/sign-up',
+          signedIn: false
+        });
+
+        this.io.render(Home, props);
       }
     });
   }

@@ -1,6 +1,7 @@
 import { Component, createElement, DOM } from 'react';
 import { pick } from 'underscore';
 
+import NavBar from 'tabular/views/navs/nav-bar';
 import Search from 'tabular/views/forms/search';
 
 const { div, h1, p } = DOM;
@@ -10,10 +11,8 @@ const { div, h1, p } = DOM;
  */
 class Home extends Component {
   /**
-   * Create a new Home page.
-   *
-   * Props:
-   *   - search: Function that accepts a query and performs a search.
+   * Create a new Home page. It requires all of the props required by the
+   * NavBar and Search form.
    */
   constructor(props) {
     super(props);
@@ -22,6 +21,7 @@ class Home extends Component {
   render() {
     const tree =
       div({},
+        createElement(NavBar, this.props),
         div({ className: 'container center' },
           h1({}, 'Tabular'),
           p({ className: 'lead' },
