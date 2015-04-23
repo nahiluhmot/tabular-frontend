@@ -1,5 +1,6 @@
 import { Component, createElement, DOM } from 'react';
 
+import { LINKS } from 'tabular/constants';
 import Search from 'tabular/views/forms/search';
 
 const { a, button, div, form, li, nav, span, ul } = DOM;
@@ -46,7 +47,7 @@ class NavBar extends Component {
           span({ className: 'icon-bar' }),
           span({ className: 'icon-bar' }),
           span({ className: 'icon-bar' })),
-        a({ className: 'navbar-brand navigate', href: '/' }, 'Tabular'));
+        a({ className: 'navbar-brand navigate', href: LINKS.home }, 'Tabular'));
 
     return tree;
   }
@@ -68,9 +69,9 @@ class NavBar extends Component {
     const tree =
       ul({ className: 'nav navbar-nav navbar-right' },
         li({},
-          a({ className: 'navigate', href: '/login' }, 'Login')),
+          a({ className: 'navigate', href: LINKS.login }, 'Login')),
         li({},
-          a({ className: 'navigate', href: '/sign-up' }, 'Sign Up')));
+          a({ className: 'navigate', href: LINKS.signUp }, 'Sign Up')));
 
     return tree;
   }
@@ -79,9 +80,9 @@ class NavBar extends Component {
     const tree =
       ul({ className: 'nav navbar-nav navbar-right' },
         li({},
-          a({ className: 'navigate', href: '/logout' }, 'Logout')),
+          a({ className: 'navigate', href: LINKS.logout }, 'Logout')),
         li({},
-          a({ className: 'navigate', href: '/profile' }, 'Profile')));
+          a({ className: 'navigate', href: LINKS.profile }, 'Profile')));
 
     return tree;
   }
