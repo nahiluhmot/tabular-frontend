@@ -1,31 +1,19 @@
 import { Component, createElement, DOM } from 'react';
 
 import Search from 'tabular/views/forms/search';
-import preventingDefault from 'tabular/utils/preventingDefault';
 
 const { a, button, div, form, li, nav, span, ul } = DOM;
 const COLLAPSE_ID = 'tabular-nav-bar-collapse';
 
-
 /**
- * This class represents the nav bar for logged out users.
+ * This class represents the nav bar, which renders different views for logged
+ * in and logged out users..
  */
 class NavBar extends Component {
   /**
-   * Create a new nav bar. The nav bar's expected props differ based on whether
-   * or not a user is signed in.
+   * Create a new nav bar.
    *
-   * Props (signed in user):
-   *  - logout:  Path that logs the user out and redirects them to the home
-   *             page.
-   *  - profile: Path of the profile page.
-   *
-   * Props (signed out user):
-   *  - login:  Path of the login page.
-   *  - signUp: Path of the sign up page.
-   *
-   * Props (both):
-   *  - home:     Path of the home page.
+   * Props:
    *  - search:   Function that accepts a query and navigates to the search
    *              page.
    *  - signedIn: Boolean that indicates whether or not a user is signed in.
@@ -45,7 +33,6 @@ class NavBar extends Component {
   }
 
   header() {
-    const { home } = this.props;
     const buttonAttributes = {
       type: 'button',
       className: 'navbar-toggle collapsed',
@@ -59,7 +46,7 @@ class NavBar extends Component {
           span({ className: 'icon-bar' }),
           span({ className: 'icon-bar' }),
           span({ className: 'icon-bar' })),
-        a({ className: 'navbar-brand navigate', href: home }, 'Tabular'));
+        a({ className: 'navbar-brand navigate', href: '/' }, 'Tabular'));
 
     return tree;
   }
@@ -78,27 +65,23 @@ class NavBar extends Component {
   }
 
   signedOutRight() {
-    const { login, signUp } = this.props;
-
     const tree =
       ul({ className: 'nav navbar-nav navbar-right' },
         li({},
-          a({ className: 'navigate', href: login }, 'Login')),
+          a({ className: 'navigate', href: '/login' }, 'Login')),
         li({},
-          a({ className: 'navigate', href: signUp }, 'Sign Up')));
+          a({ className: 'navigate', href: '/sign-up' }, 'Sign Up')));
 
     return tree;
   }
 
   signedInRight() {
-    const { logout, profile } = this.props;
-
     const tree =
       ul({ className: 'nav navbar-nav navbar-right' },
         li({},
-          a({ className: 'navigate', href: logout }, 'Logout')),
+          a({ className: 'navigate', href: '/logout' }, 'Logout')),
         li({},
-          a({ className: 'navigate', href: profile }, 'Profile')));
+          a({ className: 'navigate', href: '/profile' }, 'Profile')));
 
     return tree;
   }

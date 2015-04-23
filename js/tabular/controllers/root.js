@@ -22,8 +22,7 @@ class Root {
 
   home() {
     const sessionKey = this.io.getSessionKey();
-    let props = {
-      home: '/',
+    const props = {
       search: query => {
         console.log(`searched for ${query}`);
       }
@@ -32,22 +31,12 @@ class Root {
     this.users.loggedIn(sessionKey, {
       success: ({ username }) => {
         console.log(`Signed in: ${username} with key ${sessionKey}`);
-        props = extend({}, props, {
-          logout: '/logout',
-          profile: '/profile',
-          signedIn: true
-        });
-
+        props.signedIn = true;
         this.io.render(Home, props);
       },
       error: () => {
         console.log(`No signed in user: "${sessionKey}"`);
-        props = extend({}, props, {
-          login: '/login',
-          signUp: '/sign-up',
-          signedIn: false
-        });
-
+        props.signedIn = false;
         this.io.render(Home, props);
       }
     });
