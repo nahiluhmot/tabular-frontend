@@ -22,21 +22,26 @@ class Search extends Component {
   render() {
     const { className, search } = this.props;
     const { query } = this.state;
+    const inputProps = {
+      type: 'text',
+      className: 'form-control',
+      placeholder:  'Search',
+      onChange: event => this.setState({ query: event.target.value })
+    };
+    const buttonProps = {
+      className: 'btn btn-default',
+      disabled: (query === '') ? 'disabled' : null,
+      onClick: event => {
+        event.preventDefault();
+        search(query);
+      }
+    };
     const tree =
       div({ className: this.props.className },
         div({ className: 'input-group' },
-          input({
-            type: 'text',
-            className: 'form-control',
-            placeholder:  'Search'
-          }),
-          span({ className: 'input-group-button' },
-            button({
-              className: 'btn btn-default',
-              disabled: (query === '') ? 'disabled' : null,
-              onClick: () => search(query)
-            }, 'Search'))));
-
+          input(inputProps),
+          span({ className: 'input-group-btn' },
+            button(buttonProps, 'Search'))));
     return tree;
   }
 }

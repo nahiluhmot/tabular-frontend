@@ -1,5 +1,6 @@
 var config = require('../config.js').js;
 var gulp = require('gulp');
+var merge = require('merge-stream');
 var minify = require('../util/minify-js.js');
 var transpile = require('../util/transpile.js');
 
@@ -16,12 +17,10 @@ gulp.task('js:min', ['js:compile'], function() {
   return minify(config.min.src, config.min.dest, config.sourceMaps);
 });
 
-gulp.task('js:vendored', config.vendored.srcs.map(function(object) {
-  var taskName = 'js:vendored:' + object.name;
-
-  gulp.task(taskName, function() {
+gulp.task('js:vendored', function()  {
+  var streams = config.vendored.srcs.map(function(object) {
     return minify(object.src, config.vendored.dest, config.sourceMaps);
   });
 
-  return taskName;
-}));
+  return merge(streams);
+});

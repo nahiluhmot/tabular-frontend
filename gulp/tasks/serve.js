@@ -10,7 +10,6 @@ gulp.task('serve', ['watch'], function() {
     .pipe(serve({
       port: config.port,
       open: false,
-      fallback: 'index.html',
       proxies: [
         {
           source: '/api',
