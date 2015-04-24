@@ -38,7 +38,7 @@ class NavBar extends Component {
       type: 'button',
       className: 'navbar-toggle collapsed',
       'data-toggle': 'collapse',
-      'data-target': COLLAPSE_ID
+      'data-target': `#${COLLAPSE_ID}`
     };
     const tree =
       div({ className: 'navbar-header' },
