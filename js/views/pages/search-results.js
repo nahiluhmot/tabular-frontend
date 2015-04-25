@@ -5,10 +5,9 @@ import NavBar from 'views/navs/nav-bar';
 const { a, button, div, h1, li, p, ul, table, tr, td, tbody, thead } = DOM;
 
 /**
+ * This page renders the search results.
  */
 class SearchResults extends Component {
-  /**
-   */
   constructor(props) {
     super(props);
   }
