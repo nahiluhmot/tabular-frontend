@@ -1,6 +1,5 @@
 import { Component, createElement, DOM } from 'vendored/react';
 
-import { LINKS } from 'constants';
 import Search from 'views/forms/search';
 
 const { a, button, div, form, li, nav, span, ul } = DOM;
@@ -47,7 +46,7 @@ class NavBar extends Component {
           span({ className: 'icon-bar' }),
           span({ className: 'icon-bar' }),
           span({ className: 'icon-bar' })),
-        a({ className: 'navbar-brand navigate', href: LINKS.home }, 'Tabular'));
+        a({ className: 'navbar-brand navigate', href: '/' }, 'Tabular'));
 
     return tree;
   }
@@ -69,9 +68,9 @@ class NavBar extends Component {
     const tree =
       ul({ className: 'nav navbar-nav navbar-right' },
         li({},
-          a({ className: 'navigate', href: LINKS.login }, 'Login')),
+          a({ className: 'navigate', href: '/login' }, 'Login')),
         li({},
-          a({ className: 'navigate', href: LINKS.signUp }, 'Sign Up')));
+          a({ className: 'navigate', href: '/sign-up' }, 'Sign Up')));
 
     return tree;
   }
@@ -80,9 +79,9 @@ class NavBar extends Component {
     const tree =
       ul({ className: 'nav navbar-nav navbar-right' },
         li({},
-          a({ className: 'navigate', href: LINKS.logout }, 'Logout')),
+          a({ className: 'navigate', href: '/logout' }, 'Logout')),
         li({},
-          a({ className: 'navigate', href: LINKS.profile }, 'Profile')));
+          a({ className: 'navigate', href: '/feed' }, 'Feed')));
 
     return tree;
   }
