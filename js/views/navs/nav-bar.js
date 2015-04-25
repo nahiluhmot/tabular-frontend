@@ -76,12 +76,14 @@ class NavBar extends Component {
   }
 
   signedInRight() {
+    const { logout } = this.props;
+
     const tree =
       ul({ className: 'nav navbar-nav navbar-right' },
         li({},
-          a({ className: 'navigate', href: '/logout' }, 'Logout')),
+          a({ onClick: logout }, 'Logout')),
         li({},
-          a({ className: 'navigate', href: '/feed' }, 'Feed')));
+          a({ className: 'navigate', href: '/a/' }, 'Feed')));
 
     return tree;
   }

@@ -49,13 +49,18 @@ class Base {
         hasPrev: false
       }
     });
+    props.logout = event => {
+      event.preventDefault();
+      this.withRequests('sessions', sessions =>
+        sessions.logout(key, { complete: () => this.io.navigate('/') }));
+    };
 
     if (key === '') {
       props.signedIn = false;
       this.io.render(type, props);
     } else {
       this.withRequests('users', users =>
-        users.loggedIn(this.io.getSessionKey(), {
+        users.loggedIn(key, {
           success: () => props.signedIn = true,
           error: () => props.signedIn = false,
           complete: () => this.io.render(type, props)
