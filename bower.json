@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "react": "~0.13.2",
-    "aviator": "~0.4.2",
+    "aviator": "add-rails-style-link-to",
     "reqwest": "~1.1.5",
     "underscore": "~1.8.3",
     "requirejs": "~2.1.17",
