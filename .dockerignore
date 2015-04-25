@@ -2,8 +2,7 @@
 .git/
 .gitignore
 
-coverage/
-spec/
+build/
 
 Dockerfile
 README.md

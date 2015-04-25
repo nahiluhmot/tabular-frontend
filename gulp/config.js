@@ -21,7 +21,6 @@ var html = $(base, 'html');
 var js = $(base, 'js');
 var less = $(base, 'less');
 var node = $(base, 'node_modules');
-var spec = $(base, 'spec');
 
 /**
  * This object holds the configuration for each task, keyed by task name.
@@ -63,10 +62,6 @@ var config = {
           src: $(bower, 'bootstrap', 'dist', 'js', 'bootstrap.js'),
         },
         {
-          name: 'chai',
-          src: $(bower, 'chai', 'chai.js')
-        },
-        {
           name: 'cookies-js',
           src: $(bower, 'cookies-js', 'dist', 'cookies.js')
         },
@@ -77,10 +72,6 @@ var config = {
         {
           name: 'jquery',
           src: $(bower, 'jquery', 'dist', 'jquery.js'),
-        },
-        {
-          name: 'mocha',
-          src: $(bower, 'mocha', 'mocha.js')
         },
         {
           name: 'react',
@@ -110,15 +101,9 @@ var config = {
     },
     vendored: {
       src: [
-        $(bower, 'mocha', 'mocha.css'),
         $(bower, 'bootstrap', 'dist', 'css', 'bootstrap.min.css'),
         $(bower, 'bootstrap', 'dist', 'css', 'bootstrap-theme.min.css')
-      ].concat(
-        isProductionBuild ? [] : [
-          $(bower, 'bootstrap', 'dist', 'css', 'bootstrap.min.css.map'),
-          $(bower, 'bootstrap', 'dist', 'css', 'bootstrap-theme.min.css.map')
-        ]
-      ),
+      ],
       dest: $(build, 'public', 'css', 'vendored')
     },
   },
@@ -126,33 +111,13 @@ var config = {
     src: [
       $(base, 'gulpfile.js'),
       $(gulp, '**', '*.js'),
-      $(js, '**', '*.js'),
-      $(spec, '**', '*.js')
+      $(js, '**', '*.js')
     ],
     reporter: 'jshint-stylish'
   },
   serve: {
     src: $(build, 'public'),
     port: 3000
-  },
-  spec: {
-    compile: {
-      src: $(spec, '**', '*.js'),
-      dest: $(build, 'compile', 'spec'),
-    },
-    min: {
-      src: $(build, 'compile', 'spec', '**', '*.js'),
-      dest: $(build, 'public', 'js', 'spec'),
-    },
-    html: {
-      src: $(html, 'spec.html'),
-      dest: $(build, 'public')
-    },
-    run: {
-      src: $(build, 'public'),
-      open: '/spec.html',
-      port: 3001
-    }
   }
 };
 
