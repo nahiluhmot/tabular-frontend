@@ -55,35 +55,33 @@ class Root extends Base {
     this.withRequests('tabs', tabs =>
       tabs.searchTabs(query, page, {
         success: data => {
-          const toNext = () =>
-            this.io.navigate(LINKS.search, {
-              queryParams: {
-                page: page + 1,
-                query: query,
-                hasNext: true,
-                hasPrev: true
-              }
-            });
+          const searchLink = params =>
+            this.io.linkTo(LINKS.search, { queryParams: params });
 
-          const toPrev = hasNext =>
-            this.io.navigate(LINKS.search, {
-              queryParams: {
-                page: page - 1,
-                query: query,
-                hasNext: true,
-                hasPrev: page > 2
-              }
+          const nextLink = searchLink({
+            page: page + 1,
+            query: query,
+            hasNext: true,
+            hasPrev: true
+          });
+          const firstLink = searchLink({
+            page: 1,
+            query: query,
+            hasPrev: false,
+            hasNext: true
+          });
+          const prevLink = hasNext =>
+            searchLink({
+              page: page - 1,
+              query: query,
+              hasNext: true,
+              hasPrev: page > 2
             });
 
           if ((page > 1) && (data.length === 0)) {
-            toPrev(false);
+            this.io.navigate(prevLink(false));
           } else if (page < 1) {
-            this.io.navigate(LINKS.search, {
-              page: 1,
-              query: query,
-              hasPrev: false,
-              hasNext: true
-            });
+            this.io.navigate(firstLink);
           } else {
             hasNext = hasNext && (data.length === MAX_SEARCH_RESULTS_PER_PAGE);
             this.withPage('search-results', SearchResults =>
@@ -91,8 +89,10 @@ class Root extends Base {
                 page: page,
                 query: query,
                 results: data,
-                next: hasNext ? toNext : null,
-                prev: (page > 1) ? toPrev(true) : null
+                navigateToTab: id => this.io.navigate(`#/tabs/${id}`),
+                linkToUser: name => this.io.linkTo(`#/users/${name}`),
+                next: hasNext ? nextLink : null,
+                prev: (page > 1) ? prevLink(true) : null
               })
             );
           }

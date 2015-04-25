@@ -22,6 +22,11 @@ export default {
   navigate: (route, params) => window.Aviator.navigate(route, params),
 
   /**
+   * Make a link to the given route.
+   */
+  linkTo: (route, params) => window.Aviator.linkTo(route, params),
+
+  /**
    * Send an HTTP request.
    */
   request(options) {
