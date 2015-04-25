@@ -44,7 +44,7 @@ class Root extends Base {
         createUser: (username, password, confirmation, callbacks) =>
           this.withRequests('users', users =>
             users.createUser(username, password, confirmation, callbacks)),
-        success: (data) => this.io.navigate(LINKS.profile)
+        success: data => this.io.navigate(LINKS.profile)
       })
     );
   }
@@ -70,12 +70,10 @@ class Root extends Base {
               queryParams: {
                 page: page - 1,
                 query: query,
-                hasNext: hasNext,
+                hasNext: true,
                 hasPrev: page > 2
               }
             });
-
-          const notFilled = data.length < MAX_SEARCH_RESULTS_PER_PAGE;
 
           if ((page > 1) && (data.length === 0)) {
             toPrev(false);
@@ -87,13 +85,14 @@ class Root extends Base {
               hasNext: true
             });
           } else {
+            hasNext = hasNext && (data.length === MAX_SEARCH_RESULTS_PER_PAGE);
             this.withPage('search-results', SearchResults =>
               this.render(SearchResults, {
                 page: page,
                 query: query,
                 results: data,
-                next: (!hasNext || notFilled) ? null : toNext,
-                prev: (page <= 1) ? null : () => toPrev(true)
+                next: hasNext ? toNext : null,
+                prev: (page > 1) ? toPrev(true) : null
               })
             );
           }
