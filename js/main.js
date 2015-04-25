@@ -1,3 +1,5 @@
-import { initialize } from 'tabular';
+import Aviator from 'aviator';
+import Routes from 'tabular/routes';
 
-initialize();
+window.Aviator.setRoutes(Routes);
+window.Aviator.dispatch();

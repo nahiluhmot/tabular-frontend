@@ -29,7 +29,7 @@ class Root {
   }
 
   home() {
-    this.render(Home, {});
+    this.render(Home);
   }
 
   login() {
@@ -55,20 +55,21 @@ class Root {
   }
 
   search(options) {
-    let { page, query, hasNext, hasPrev } = options.queryParams;
+    let { page, query, hasNext } = options.queryParams;
 
     this.tabs.searchTabs(query, page, {
       success: data => {
-        const nextLink = this.io.linkTo(LINKS.search, {
-          queryParams: {
-            page: page + 1,
-            query: query,
-            hasNext: true,
-            hasPrev: true
-          }
-        });
+        const toNext = () =>
+          this.io.navigate(LINKS.search, {
+            queryParams: {
+              page: page + 1,
+              query: query,
+              hasNext: true,
+              hasPrev: true
+            }
+          });
 
-        const prevLink = hasNext =>
+        const toPrev = hasNext =>
           this.io.navigate(LINKS.search, {
             queryParams: {
               page: page - 1,
@@ -95,7 +96,7 @@ class Root {
             query: query,
             results: data,
             next: (!hasNext || notFilled) ? null : toNext,
-            prev: hasPrev ? null : () => toPrev(true)
+            prev: (page <= 1) ? null : () => toPrev(true)
           });
         }
       },
@@ -106,6 +107,7 @@ class Root {
   }
 
   render(type, props) {
+    props = props || {};
     props.search = query =>
       this.io.navigate(LINKS.search, {
         queryParams: {
