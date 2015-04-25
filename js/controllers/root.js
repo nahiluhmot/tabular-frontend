@@ -1,4 +1,4 @@
-import { MAX_SEARCH_RESULTS_PER_PAGE, LINKS } from 'constants';
+import { MAX_SEARCH_RESULTS_PER_PAGE } from 'constants';
 import Base from 'controllers/base';
 
 /**
@@ -25,7 +25,7 @@ class Root extends Base {
         login: (username, password, callbacks) =>
           this.withRequests('sessions', sessions =>
             sessions.login(username, password, callbacks)),
-        success: () => this.io.navigate(LINKS.profile)
+        success: () => this.io.navigate('/')
       })
     );
   }
@@ -33,7 +33,7 @@ class Root extends Base {
   logout() {
     this.withRequests('sessions', sessions =>
       sessions.logout(this.io.getSessionKey(), {
-        complete: () => this.io.navigate(LINKS.home)
+        complete: () => this.io.navigate('/')
       })
     );
   }
@@ -44,7 +44,7 @@ class Root extends Base {
         createUser: (username, password, confirmation, callbacks) =>
           this.withRequests('users', users =>
             users.createUser(username, password, confirmation, callbacks)),
-        success: data => this.io.navigate(LINKS.profile)
+        success: data => this.io.navigate('/')
       })
     );
   }
@@ -55,8 +55,9 @@ class Root extends Base {
     this.withRequests('tabs', tabs =>
       tabs.searchTabs(query, page, {
         success: data => {
-          const searchLink = params =>
-            this.io.linkTo(LINKS.search, { queryParams: params });
+          const searchLink = params => this.io.linkTo('/search', {
+            queryParams: params
+          });
 
           const nextLink = searchLink({
             page: page + 1,
@@ -77,6 +78,7 @@ class Root extends Base {
               hasNext: true,
               hasPrev: page > 2
             });
+          const tabLink = id => this.io.linkTo('/tab/:id', { id: id });
 
           if ((page > 1) && (data.length === 0)) {
             this.io.navigate(prevLink(false));
@@ -89,15 +91,17 @@ class Root extends Base {
                 page: page,
                 query: query,
                 results: data,
-                navigateToTab: id => this.io.navigate(`#/tabs/${id}`),
-                linkToUser: name => this.io.linkTo(`#/users/${name}`),
+                navigateToTab: id => this.io.navigate(`/tabs/${id}`),
                 next: hasNext ? nextLink : null,
                 prev: (page > 1) ? prevLink(true) : null
               })
             );
           }
         },
-        error: error => console.log(error)
+        error: error => {
+          console.log(`Error searching tabs for query: ${query}`);
+          console.log(error);
+        }
       })
     );
   }

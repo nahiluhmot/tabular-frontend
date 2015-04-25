@@ -1,5 +1,3 @@
-import { LINKS } from 'constants';
-
 /**
  * This is the base controller for tabular. It contains methods to lazily load
  * requests and pages, as well as to render views.
@@ -41,24 +39,29 @@ class Base {
   }
 
   render(type, props) {
+    const key = this.io.getSessionKey();
     props = props || {};
-    props.search = query =>
-      this.io.navigate(LINKS.search, {
-        queryParams: {
-          query: query,
-          page: 1,
-          hasNext: true,
-          hasPrev: false
-        }
-      });
+    props.search = query => this.io.navigate('/search', {
+      queryParams: {
+        query: query,
+        page: 1,
+        hasNext: true,
+        hasPrev: false
+      }
+    });
 
-    this.withRequests('users', users =>
-      users.loggedIn(this.io.getSessionKey(), {
-        success: () => props.signedIn = true,
-        error: () => props.signedIn = false,
-        complete: () => this.io.render(type, props)
-      })
-    );
+    if (key === '') {
+      props.signedIn = false;
+      this.io.render(type, props);
+    } else {
+      this.withRequests('users', users =>
+        users.loggedIn(this.io.getSessionKey(), {
+          success: () => props.signedIn = true,
+          error: () => props.signedIn = false,
+          complete: () => this.io.render(type, props)
+        })
+      );
+    }
   }
 }
 

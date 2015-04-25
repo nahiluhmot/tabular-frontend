@@ -14,7 +14,7 @@ export default {
   /**
    * Get the session key for the logged in user.
    */
-  getSessionKey: () => Cookies.get(Constants.SESSION_KEY_COOKIE),
+  getSessionKey: () => Cookies.get(Constants.SESSION_KEY_COOKIE) || '',
 
   /**
    * Navigate to the given route.
