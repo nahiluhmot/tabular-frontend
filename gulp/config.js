@@ -83,8 +83,8 @@ var config = {
           src: $(bower, 'mocha', 'mocha.js')
         },
         {
-          name: 'react-with-addons',
-          src: $(bower, 'react', 'react-with-addons.js')
+          name: 'react',
+          src: $(bower, 'react', 'react.js')
         },
         {
           name: 'requirejs',

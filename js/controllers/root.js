@@ -1,15 +1,15 @@
-import { extend } from 'underscore';
+import { extend } from 'vendored/underscore';
 
-import { MAX_SEARCH_RESULTS_PER_PAGE, LINKS } from 'tabular/constants';
+import { MAX_SEARCH_RESULTS_PER_PAGE, LINKS } from 'constants';
 
-import Home from 'tabular/views/pages/home';
-import Login from 'tabular/views/pages/login';
-import SignUp from 'tabular/views/pages/sign-up';
-import SearchResults from 'tabular/views/pages/search-results';
+import Home from 'views/pages/home';
+import Login from 'views/pages/login';
+import SignUp from 'views/pages/sign-up';
+import SearchResults from 'views/pages/search-results';
 
-import Users from 'tabular/requests/users';
-import Sessions from 'tabular/requests/sessions';
-import Tabs from 'tabular/requests/tabs';
+import Users from 'requests/users';
+import Sessions from 'requests/sessions';
+import Tabs from 'requests/tabs';
 
 /**
  * This is the top level controller for the application.

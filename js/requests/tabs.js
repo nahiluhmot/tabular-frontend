@@ -1,4 +1,4 @@
-import { API_ROOT } from 'tabular/constants';
+import { API_ROOT } from 'constants';
 
 /**
  * This module exports functions for interacting with tabs.

@@ -1,7 +1,7 @@
-import { Component, createElement, DOM } from 'react';
+import { Component, createElement, DOM } from 'vendored/react';
 
-import NavBar from 'tabular/views/navs/nav-bar';
-import Search from 'tabular/views/forms/search';
+import NavBar from 'views/navs/nav-bar';
+import Search from 'views/forms/search';
 
 const { div, h1, p } = DOM;
 

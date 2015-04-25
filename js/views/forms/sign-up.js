@@ -1,13 +1,13 @@
-import { Component, createElement, DOM } from 'react';
-import { compact, extend, map, values } from 'underscore';
+import { Component, createElement, DOM } from 'vendored/react';
+import { compact, extend, map, values } from 'vendored/underscore';
 
-import Username from 'tabular/views/inputs/username';
-import Password from 'tabular/views/inputs/password';
-import Confirmation from 'tabular/views/inputs/confirmation';
+import Username from 'views/inputs/username';
+import Password from 'views/inputs/password';
+import Confirmation from 'views/inputs/confirmation';
 
-import validateUsername from 'tabular/validators/username';
-import validatePassword from 'tabular/validators/password';
-import validateConfirmation from 'tabular/validators/confirmation';
+import validateUsername from 'validators/username';
+import validatePassword from 'validators/password';
+import validateConfirmation from 'validators/confirmation';
 
 const { button, div, form } = DOM;
 

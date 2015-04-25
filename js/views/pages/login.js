@@ -1,14 +1,14 @@
-import { Component, createElement, DOM } from 'react';
+import { Component, createElement, DOM } from 'vendored/react';
 
-import NavBar from 'tabular/views/navs/nav-bar';
-import SignUpForm from 'tabular/views/forms/sign-up';
+import NavBar from 'views/navs/nav-bar';
+import LoginForm from 'views/forms/login';
 
 const { div, h1, p } = DOM;
 
 /**
  * This class represents sign up page.
  */
-class SignUp extends Component {
+class Login extends Component {
   /**
    * Create a new Home page. It requires all of the props required by the
    * Nav and SignUpForm.
@@ -22,10 +22,11 @@ class SignUp extends Component {
       div({},
         createElement(NavBar, this.props),
         div({ className: 'container center' },
-          h1({}, 'Sign Up!'),
-          createElement(SignUpForm, this.props)));
+          h1({}, 'Login'),
+          createElement(LoginForm, this.props)));
+
     return tree;
   }
 }
 
-export default SignUp;
+export default Login;

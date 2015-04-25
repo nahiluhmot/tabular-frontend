@@ -1,4 +1,4 @@
-import { API_ROOT } from 'tabular/constants';
+import { API_ROOT } from 'constants';
 
 /**
  * This module contains functions for interacting with Users.

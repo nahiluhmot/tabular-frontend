@@ -1,5 +1,4 @@
-import Base from 'tabular/views/inputs/base';
-import { extend } from 'underscore';
+import Base from 'views/inputs/base';
 
 /**
  * This class represents a Password input field.

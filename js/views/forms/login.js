@@ -1,7 +1,7 @@
-import { Component, createElement, DOM } from 'react';
+import { Component, createElement, DOM } from 'vendored/react';
 
-import Password from 'tabular/views/inputs/password';
-import Username from 'tabular/views/inputs/username';
+import Password from 'views/inputs/password';
+import Username from 'views/inputs/username';
 
 const { button, div, form, input, label } = DOM;
 

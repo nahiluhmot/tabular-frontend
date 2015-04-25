@@ -1,11 +1,11 @@
-import { Component, createElement, DOM } from 'react';
-import { extend, identity, map, omit, pairs, pick, size } from 'underscore';
+import { Component, createElement, DOM } from 'vendored/react';
+import { extend, identity, omit, pairs, pick, size } from 'vendored/underscore';
 
-import Password from 'tabular/views/inputs/password';
-import Confirmation from 'tabular/views/inputs/confirmation';
+import Password from 'views/inputs/password';
+import Confirmation from 'views/inputs/confirmation';
 
-import validatePassword from 'tabular/validators/password';
-import validateConfirmation from 'tabular/validators/confirmation';
+import validatePassword from 'validators/password';
+import validateConfirmation from 'validators/confirmation';
 
 const { button, div, form, input, label } = DOM;
 

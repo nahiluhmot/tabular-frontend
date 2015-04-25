@@ -1,6 +1,6 @@
-import { Component, createElement, DOM } from 'react';
+import { Component, createElement, DOM } from 'vendored/react';
 
-import NavBar from 'tabular/views/navs/nav-bar';
+import NavBar from 'views/navs/nav-bar';
 
 const { button, div, h1, li, p, ul } = DOM;
 

@@ -1,7 +1,6 @@
 /**
  * This module exports the constants for the application runtime.
  */
-
 export default {
   API_ROOT: '/api',
   ROOT_ELEMENT_ID: 'tabular-main',

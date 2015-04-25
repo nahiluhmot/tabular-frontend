@@ -1,11 +1,11 @@
-import Aviator from 'aviator';
-import Cookies from 'cookies';
-import { stringify as toJSON } from 'json';
-import { createElement, render } from 'react';
-import { default as request } from 'reqwest';
-import { pluck } from 'underscore';
+import Aviator from 'vendored/aviator';
+import Cookies from 'vendored/cookies';
+import { stringify as toJSON } from 'vendored/json3';
+import { createElement, render } from 'vendored/react';
+import { default as request } from 'vendored/reqwest';
+import { pluck } from 'vendored/underscore';
 
-import Constants from 'tabular/constants';
+import Constants from 'constants';
 
 /**
  * This module exports the IO functions required by the controllers.

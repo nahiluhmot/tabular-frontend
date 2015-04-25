@@ -1,4 +1,4 @@
-import { API_ROOT } from 'tabular/constants';
+import { API_ROOT } from 'constants';
 
 /**
  * This class has methods for interacting with activity logs.

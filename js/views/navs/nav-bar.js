@@ -1,7 +1,7 @@
-import { Component, createElement, DOM } from 'react';
+import { Component, createElement, DOM } from 'vendored/react';
 
-import { LINKS } from 'tabular/constants';
-import Search from 'tabular/views/forms/search';
+import { LINKS } from 'constants';
+import Search from 'views/forms/search';
 
 const { a, button, div, form, li, nav, span, ul } = DOM;
 const COLLAPSE_ID = 'tabular-nav-bar-collapse';

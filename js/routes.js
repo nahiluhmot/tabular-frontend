@@ -1,6 +1,6 @@
-import { LINKS } from 'tabular/constants';
-import Root from 'tabular/controllers/root';
-import IO from 'tabular/io';
+import { LINKS } from 'constants';
+import Root from 'controllers/root';
+import IO from 'io';
 
 const { home, login, logout, signUp, search } = LINKS;
 
