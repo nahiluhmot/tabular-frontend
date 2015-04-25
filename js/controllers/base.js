@@ -7,15 +7,37 @@ import { LINKS } from 'constants';
 class Base {
   constructor(io) {
     this.io = io;
+
+    this._requests =
+      this.memoize((key, done) =>
+        require([`requests/${key}`], type => done(new type(this.io.request))));
+
+    this._pages =
+      this.memoize((key, done) =>
+        require([`views/pages/${key}`], done));
   }
 
-  withRequests(string, callback) {
-    require([`requests/${string}`], klass =>
-      callback(new klass(this.io.request)));
+  withRequests(key, callback) {
+    this._requests(key, callback);
   }
 
-  withPage(string, callback) {
-    return require([`views/pages/${string}`], callback);
+  withPage(key, callback) {
+    this._pages(key, callback);
+  }
+
+  memoize(lookup) {
+    const cache = {};
+
+    return (key, done) => {
+      if (cache[key]) {
+        done(cache[key]);
+      } else {
+        lookup(key, data => {
+          cache[key] = data;
+          done(data);
+        });
+      }
+    };
   }
 
   render(type, props) {
