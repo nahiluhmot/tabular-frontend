@@ -91,7 +91,7 @@ class Root extends Base {
                 page: page,
                 query: query,
                 results: data,
-                navigateToTab: id => this.io.navigate(`/tabs/${id}`),
+                navigateToTab: id => this.io.navigate(tabLink(id)),
                 next: hasNext ? nextLink : null,
                 prev: (page > 1) ? prevLink(true) : null
               })
