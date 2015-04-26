@@ -20,7 +20,6 @@ var gulp = $(base, 'gulp');
 var html = $(base, 'html');
 var js = $(base, 'js');
 var less = $(base, 'less');
-var node = $(base, 'node_modules');
 
 /**
  * This object holds the configuration for each task, keyed by task name.
@@ -52,7 +51,7 @@ var config = {
       dest: $(build, 'public', 'js')
     },
     vendored: {
-      srcs: [
+      src: [
         $(bower, 'aviator', 'aviator.js'),
         $(bower, 'bootstrap', 'dist', 'js', 'bootstrap.js'),
         $(bower, 'cookies-js', 'dist', 'cookies.js'),
