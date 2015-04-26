@@ -38,7 +38,7 @@ class Base {
     };
   }
 
-  render(type, props) {
+  render(page, props) {
     const key = this.io.getSessionKey();
     props = props || {};
     props.search = query => this.io.navigate('/search', {
@@ -63,7 +63,8 @@ class Base {
         users.loggedIn(key, {
           success: () => props.signedIn = true,
           error: () => props.signedIn = false,
-          complete: () => this.io.render(type, props)
+          complete: () =>
+            this.withPage(page, type => this.io.render(type, props))
         })
       );
     }

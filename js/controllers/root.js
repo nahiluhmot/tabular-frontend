@@ -16,18 +16,16 @@ class Root extends Base {
   }
 
   home() {
-    this.withPage('home', Home => this.render(Home));
+    this.render('home');
   }
 
   login() {
-    this.withPage('login', Login =>
-      this.render(Login, {
-        login: (username, password, callbacks) =>
-          this.withRequests('sessions', sessions =>
-            sessions.login(username, password, callbacks)),
-        success: () => this.io.navigate('/')
-      })
-    );
+    this.render('login', {
+      login: (username, password, callbacks) =>
+        this.withRequests('sessions', sessions =>
+          sessions.login(username, password, callbacks)),
+      success: () => this.io.navigate('/')
+    });
   }
 
   logout() {
@@ -39,14 +37,12 @@ class Root extends Base {
   }
 
   signUp() {
-    this.withPage('sign-up', SignUp =>
-      this.render(SignUp, {
-        createUser: (username, password, confirmation, callbacks) =>
-          this.withRequests('users', users =>
-            users.createUser(username, password, confirmation, callbacks)),
-        success: data => this.io.navigate('/')
-      })
-    );
+    this.render('sign-up', {
+      createUser: (username, password, confirmation, callbacks) =>
+        this.withRequests('users', users =>
+          users.createUser(username, password, confirmation, callbacks)),
+      success: data => this.io.navigate('/')
+    });
   }
 
   search(options) {
@@ -86,16 +82,14 @@ class Root extends Base {
             this.io.navigate(firstLink);
           } else {
             hasNext = hasNext && (data.length === MAX_SEARCH_RESULTS_PER_PAGE);
-            this.withPage('search-results', SearchResults =>
-              this.render(SearchResults, {
-                page: page,
-                query: query,
-                results: data,
-                navigateToTab: id => this.io.navigate(tabLink(id)),
-                next: hasNext ? nextLink : null,
-                prev: (page > 1) ? prevLink(true) : null
-              })
-            );
+            this.render('search-results', {
+              page: page,
+              query: query,
+              results: data,
+              navigateToTab: id => this.io.navigate(tabLink(id)),
+              next: hasNext ? nextLink : null,
+              prev: (page > 1) ? prevLink(true) : null
+            });
           }
         },
         error: error => {
