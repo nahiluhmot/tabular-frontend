@@ -24,6 +24,17 @@ class Users {
   }
 
   /**
+   * Find a user by their username.
+   */
+  findByUsername(username, callbacks) {
+    this.request({
+      url: `${Users.root}/${username}`,
+      method: 'GET',
+      callbacks: callbacks
+    });
+  }
+
+  /**
    * Create a user with the given username, password, confirmation, and set of
    * callbacks.
    */
