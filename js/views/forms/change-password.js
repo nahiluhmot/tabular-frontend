@@ -19,7 +19,7 @@ class ChangePassword extends Component {
    *
    * Props:
    *   - changePassword: Function that accepts a password, confirmation, and
-   *                     then creates a user.
+   *                     then changes the user's password.
    *     login:          Function that accepts a password and authenticates
    *                     a user. Used to check the current password.
    *   - success:        Function to perform when the password is changed.
@@ -114,9 +114,10 @@ class ChangePassword extends Component {
         this.setState({ errors: {} }, () =>
           request(password, confirmation, {
             success: success,
-            error(error) {
-              console.log('Unexpected error while changing password');
-              console.log(error);
+            error: error => {
+              this.setState({
+                'Current Password': 'cannot be changed at this time'
+              });
             }})),
       error: () =>
         this.setState({ errors: { 'Current Password': 'is not valid' } })

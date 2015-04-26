@@ -52,7 +52,7 @@ class Feed extends Component {
                         'View Profile')),
                     div({ className: 'col-xs-6' },
                       a({ className: 'navigate', href: '/a/edit' },
-                        'Edit Profile')))))),
+                        'Change Password')))))),
             div({ className: 'col-md-8' },
               createElement(FeedList, this.props)))));
 
