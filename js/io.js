@@ -3,7 +3,6 @@ import Cookies from 'vendored/cookies';
 import { stringify as toJSON } from 'vendored/json3';
 import { createElement, render } from 'vendored/react';
 import { default as request } from 'vendored/reqwest';
-import { pluck } from 'vendored/underscore';
 
 import Constants from 'constants';
 
