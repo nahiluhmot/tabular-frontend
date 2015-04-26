@@ -26,6 +26,11 @@ export default {
   linkTo: (route, params) => window.Aviator.linkTo(route, params),
 
   /**
+   * Refresh the page.
+   */
+  refresh: () => window.Aviator.refresh(),
+
+  /**
    * Send an HTTP request.
    */
   request(options) {

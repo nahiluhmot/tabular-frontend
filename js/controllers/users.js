@@ -25,10 +25,14 @@ class Users extends Base {
             const key = this.io.getSessionKey();
             const props = {
               user: user,
-              follow: done =>
-                relationships.follow(key, username, { complete: done }),
-              unfollow: done =>
-                relationships.unfollow(key, username, { complete: done }),
+              follow: () =>
+                relationships.follow(key, username, {
+                  complete: () => this.io.refresh()
+                }),
+              unfollow: () =>
+                relationships.unfollow(key, username, {
+                  complete: () => this.io.refresh()
+                }),
               getPage: (page, done) =>
                 this.withRequests('activity-logs', logs =>
                   logs.recentActivity(username, page, {
