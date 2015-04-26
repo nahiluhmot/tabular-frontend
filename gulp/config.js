@@ -76,8 +76,14 @@ var config = {
         $(bower, 'bootstrap', 'dist', 'css', 'bootstrap.min.css'),
         $(bower, 'bootstrap', 'dist', 'css', 'bootstrap-theme.min.css')
       ],
-      dest: $(build, 'public', 'css', 'vendored')
+      dest: $(build, 'public', 'css')
     },
+  },
+  fonts: {
+    vendored: {
+      src: $(bower, 'bootstrap', 'dist', 'fonts', '**', '*'),
+      dest: $(build, 'public', 'fonts')
+    }
   },
   lint: {
     src: [
