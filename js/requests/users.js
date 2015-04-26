@@ -28,7 +28,7 @@ class Users {
    */
   findByUsername(username, callbacks) {
     this.request({
-      url: `${Users.root}/${username}`,
+      url: `${Users.ROOT}/${username}`,
       method: 'GET',
       callbacks: callbacks
     });
