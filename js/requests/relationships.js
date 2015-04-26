@@ -4,7 +4,7 @@ import { API_ROOT } from 'constants';
  * This module contains functions for interacting with relationships.
  */
 class Relationships {
-  contsructor(request) {
+  constructor(request) {
     this.request = request;
   }
 
