@@ -43,7 +43,7 @@ class Users extends Base {
             username: username,
             users: data
           }),
-        error: () => userNotFound(username)
+        error: () => this.userNotFound(username)
       });
     });
   }
@@ -61,7 +61,7 @@ class Users extends Base {
             username: username,
             users: data
           }),
-        error: () => userNotFound(username)
+        error: () => this.userNotFound(username)
       });
     });
   }
@@ -70,13 +70,12 @@ class Users extends Base {
     this.withRequests('users', users =>
       users.findByUsername(username, {
         success: callback,
-        error: () => userNotFound(username)
+        error: () => this.userNotFound(username)
       }));
   }
 
   userNotFound(username) {
-    this.withPage('users/not-found', UserNotFound =>
-      this.render(UserNotFound, { username: username }));
+    this.render('users/not-found', { username: username });
   }
 }
 
