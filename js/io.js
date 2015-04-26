@@ -1,7 +1,7 @@
 import Aviator from 'vendored/aviator';
 import Cookies from 'vendored/cookies';
 import { stringify as toJSON } from 'vendored/json3';
-import { createElement, render } from 'vendored/react';
+import { createElement, render, unmountComponentAtNode } from 'vendored/react';
 import { default as request } from 'vendored/reqwest';
 
 import Constants from 'constants';
@@ -56,6 +56,7 @@ export default {
     const element = createElement(component, params);
     const node = document.getElementById(Constants.ROOT_ELEMENT_ID);
 
+    unmountComponentAtNode(node);
     return render(element, node, callback);
   }
 };
