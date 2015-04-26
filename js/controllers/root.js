@@ -74,7 +74,7 @@ class Root extends Base {
               hasNext: true,
               hasPrev: page > 2
             });
-          const tabLink = id => this.io.linkTo('/tab/:id', { id: id });
+          const tabLink = id => this.io.linkTo(`/tab/:id`, { id: id });
 
           if ((page > 1) && (data.length === 0)) {
             this.io.navigate(prevLink(false));
