@@ -18,15 +18,38 @@ class Users extends Base {
   feed({ namedParams }) {
     const { username } = namedParams;
 
-    this.withRealUser(username, user =>
-      render('users/feed', {
-        user: user,
-        getPage: (page, done) =>
-          this.withRequests('activity-logs', logs =>
-            logs.recentActivity(username, page, {
-              success: done,
-              error: () => done([])
-            }))
+    this.withRequests('users', users =>
+      users.findByUsername(username, {
+        success: user =>
+          this.withRequests('relationships', relationships => {
+            const key = this.io.getSessionKey();
+            const props = {
+              user: user,
+              follow: done =>
+                relationships.follow(key, username, { complete: done }),
+              unfollow: done =>
+                relationships.unfollow(key, username, { complete: done }),
+              getPage: (page, done) =>
+                this.withRequests('activity-logs', logs =>
+                  logs.recentActivity(username, page, {
+                    success: done,
+                    error: () => done([])
+                  }))
+            };
+
+            relationships.isFollowing(key, username, {
+              success: ({ following }) => {
+                props.loggedIn = true;
+                props.isFollowing = following;
+              },
+              error: () => {
+                props.loggedIn = false;
+                props.isFollowing = false;
+              },
+              complete: () => this.render('users/feed', props)
+            });
+          }),
+        error: ex => this.render('users/not-found', { username: username })
       }));
   }
 
@@ -44,7 +67,7 @@ class Users extends Base {
             username: username,
             users: data
           }),
-        error: () => this.userNotFound(username)
+        error: () => this.render('users/not-found', { username: username })
       });
     });
   }
@@ -63,21 +86,9 @@ class Users extends Base {
             username: username,
             users: data
           }),
-        error: () => this.userNotFound(username)
+        error: () => this.render('users/not-found', { username: username })
       });
     });
-  }
-
-  withRealUser(username, callback) {
-    this.withRequests('users', users =>
-      users.findByUsername(username, {
-        success: callback,
-        error: () => this.userNotFound(username)
-      }));
-  }
-
-  userNotFound(username) {
-    this.render('users/not-found', { username: username });
   }
 }
 
