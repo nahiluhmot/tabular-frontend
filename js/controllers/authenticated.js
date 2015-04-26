@@ -12,7 +12,23 @@ class Authenticated extends Base {
   }
 
   feed() {
-    console.log('going to the feed');
+    const key = this.io.getSessionKey();
+
+    this.withRequests('users', users =>
+      users.loggedIn(key, {
+        success: user =>
+          this.render('authenticated/feed', {
+            user: user,
+            edit: () => this.io.navigate('/a/edit'),
+            getPage: (page, done) =>
+              this.withRequests('activity-logs', logs =>
+                logs.frontpage(key, page, {
+                  success: done,
+                  error: done([])
+                })),
+          }),
+        error: () => this.io.navigate('/')
+      }));
   }
 
   edit() {
