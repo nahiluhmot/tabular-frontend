@@ -20,7 +20,7 @@ class ActivityLogs {
     });
   }
 
-  recent_activity(username, page, callbacks) {
+  recentActivity(username, page, callbacks) {
     this.request({
       url: `${API_ROOT}/users/${username}/feed`,
       method: 'GET',
