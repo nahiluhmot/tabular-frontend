@@ -53,42 +53,15 @@ var config = {
     },
     vendored: {
       srcs: [
-        {
-          name: 'aviator',
-          src: $(bower, 'aviator', 'aviator.js')
-        },
-        {
-          name: 'bootstrap',
-          src: $(bower, 'bootstrap', 'dist', 'js', 'bootstrap.js'),
-        },
-        {
-          name: 'cookies-js',
-          src: $(bower, 'cookies-js', 'dist', 'cookies.js')
-        },
-        {
-          name: 'json3',
-          src: $(bower, 'json3', 'lib', 'json3.js')
-        },
-        {
-          name: 'jquery',
-          src: $(bower, 'jquery', 'dist', 'jquery.js'),
-        },
-        {
-          name: 'react',
-          src: $(bower, 'react', 'react.js')
-        },
-        {
-          name: 'requirejs',
-          src: $(bower, 'requirejs', 'require.js')
-        },
-        {
-          name: 'reqwest',
-          src: $(bower, 'reqwest', 'reqwest.js')
-        },
-        {
-          name: 'underscore',
-          src: $(bower, 'underscore', 'underscore.js')
-        }
+        $(bower, 'aviator', 'aviator.js'),
+        $(bower, 'bootstrap', 'dist', 'js', 'bootstrap.js'),
+        $(bower, 'cookies-js', 'dist', 'cookies.js'),
+        $(bower, 'json3', 'lib', 'json3.js'),
+        $(bower, 'jquery', 'dist', 'jquery.js'),
+        $(bower, 'react', 'react.js'),
+        $(bower, 'requirejs', 'require.js'),
+        $(bower, 'reqwest', 'reqwest.js'),
+        $(bower, 'underscore', 'underscore.js')
       ],
       dest: $(build, 'public', 'js', 'vendored')
     }

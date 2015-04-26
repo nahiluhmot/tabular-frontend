@@ -18,8 +18,8 @@ gulp.task('js:min', ['js:compile'], function() {
 });
 
 gulp.task('js:vendored', function()  {
-  var streams = config.vendored.srcs.map(function(object) {
-    return minify(object.src, config.vendored.dest, config.sourceMaps);
+  var streams = config.vendored.srcs.map(function(src) {
+    return minify(src, config.vendored.dest, config.sourceMaps);
   });
 
   return merge(streams);
