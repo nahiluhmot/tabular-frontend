@@ -24,6 +24,15 @@ class Relationships {
     });
   }
 
+  isFollowing(sessionKey, username, callbacks) {
+    this.request({
+      url: `${API_ROOT}/users/${username}/is-following`,
+      method: 'GET',
+      sessionKey: sessionKey,
+      callbacks: callbacks
+    });
+  }
+
   follow(sessionKey, username, callbacks) {
     this.request({
       url: `${API_ROOT}/users/${username}/followers`,
