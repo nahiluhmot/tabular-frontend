@@ -18,9 +18,9 @@ class Users extends Base {
   feed({ namedParams }) {
     const { username } = namedParams;
 
-    this.withRealUser(username, () =>
+    this.withRealUser(username, user =>
       render('users/feed', {
-        username: username,
+        user: user,
         getPage: (page, done) =>
           this.withRequests('activity-logs', logs =>
             logs.recentActivity(username, page, {
@@ -39,7 +39,8 @@ class Users extends Base {
     this.withRequests('relationships', relationships => {
       relationships.followers(username, {
         success: data =>
-          this.render('users/followers', {
+          this.render('users/relationships', {
+            type: 'following',
             username: username,
             users: data
           }),
@@ -57,7 +58,8 @@ class Users extends Base {
     this.withRequests('relationships', relationships => {
       relationships.followees(username, {
         success: data =>
-          this.render('users/following', {
+          this.render('users/relationships', {
+            type: 'followers',
             username: username,
             users: data
           }),
