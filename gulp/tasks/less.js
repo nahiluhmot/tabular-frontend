@@ -1,6 +1,7 @@
 var config = require('../config.js').less;
 var gulp = require('gulp');
 var less = require('gulp-less');
+var logError = require('../util/log-error');
 var minify = require('gulp-minify-css');
 
 /**
@@ -12,6 +13,7 @@ gulp.task('less:app', function() {
   return gulp.src(config.app.src)
     .pipe(less({ paths: config.app.paths }))
     .pipe(minify())
+    .on('error', logError)
     .pipe(gulp.dest(config.app.dest));
 });
 

@@ -1,6 +1,7 @@
 var changed = require('gulp-changed');
 var gulp = require('gulp');
 var id = require('gulp-identity');
+var logError = require('./log-error.js');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 
@@ -24,6 +25,7 @@ var minifyJS = function(src, dest, sourceMaps) {
     .pipe(initSourcemaps)
     .pipe(uglify())
     .pipe(writeSourcemaps)
+    .on('error', logError)
     .pipe(gulp.dest(dest));
 };
 
