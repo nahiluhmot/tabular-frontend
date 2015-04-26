@@ -1,8 +1,8 @@
+import Authenticated from 'controllers/authenticated';
 import Root from 'controllers/root';
 import Users from 'controllers/users';
 import IO from 'io';
 
-// import Authenticated from 'controllers/authenticated';
 // import Tabs from 'controllers/tabs';
 
 export default {
@@ -11,11 +11,11 @@ export default {
   '/login': 'login',
   '/sign-up': 'signUp',
   '/search': 'search',
-  // '/a': {
-  //   target: new Authenticated(IO),
-  //   '/': 'feed',
-  //   '/edit': 'edit'
-  // },
+  '/a': {
+    target: new Authenticated(IO),
+    '/': 'feed',
+    '/edit': 'edit'
+  },
   '/u/:username': {
     target: new Users(IO),
     '/': 'feed',
@@ -24,7 +24,7 @@ export default {
   }
   // '/tabs': {
   //   target: new Tabs(IO),
-  //   '/new': 'create',
+  //   '/new': 'new',
   //   '/:id/': 'show',
   //   '/:id/edit/': 'edit'
   // }

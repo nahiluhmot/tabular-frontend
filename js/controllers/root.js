@@ -6,17 +6,18 @@ import Base from 'controllers/base';
  */
 class Root extends Base {
   /**
-   * Expected IO functions:
-   *   - getSessionKey(): Get the session key.
-   *   - render(component, params, callback): Render the React view.
-   *   - request(options): Send an HTTP request.
+   * Create a new Root controller.
    */
   constructor(io) {
     super(io);
   }
 
   home() {
-    this.render('home');
+    this.withRequests('users', users =>
+      users.loggedIn(this.io.getSessionKey(), {
+        success: () => this.io.navigate('/a/'),
+        error: () => this.render('home')
+      }));
   }
 
   login() {
@@ -24,7 +25,7 @@ class Root extends Base {
       login: (username, password, callbacks) =>
         this.withRequests('sessions', sessions =>
           sessions.login(username, password, callbacks)),
-      success: () => this.io.navigate('/')
+      success: () => this.io.navigate('/a/')
     });
   }
 
@@ -41,7 +42,7 @@ class Root extends Base {
       createUser: (username, password, confirmation, callbacks) =>
         this.withRequests('users', users =>
           users.createUser(username, password, confirmation, callbacks)),
-      success: data => this.io.navigate('/')
+      success: data => this.io.navigate('/a/')
     });
   }
 
