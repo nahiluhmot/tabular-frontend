@@ -44,7 +44,7 @@ class SearchResults extends Component {
       div({},
         createElement(NavBar, this.props),
         div({ className: 'container center' },
-          h1({ className: 'centered-header' }, `Search Results for: ${query}`),
+          h1({ className: 'centered-text' }, `Search Results for: ${query}`),
           div({ className: 'table-responsive' },
             table({ className: 'table table-hover' },
               thead({},
