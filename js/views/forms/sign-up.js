@@ -1,5 +1,5 @@
-import { Component, createElement, DOM } from 'vendored/react';
-import _ from 'vendored/underscore';
+import { Component, createElement, DOM } from 'react';
+import _ from 'underscore';
 
 import Username from 'views/inputs/username';
 import Password from 'views/inputs/password';

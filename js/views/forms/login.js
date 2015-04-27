@@ -1,4 +1,4 @@
-import { Component, createElement, DOM } from 'vendored/react';
+import { Component, createElement, DOM } from 'react';
 
 import Password from 'views/inputs/password';
 import Username from 'views/inputs/username';

@@ -44,11 +44,18 @@ var config = {
     sourceMaps: !isProductionBuild,
     compile: {
       src: $(js, '**', '*.js'),
-      dest: $(build, 'compile', 'src')
+      dest: $(build, 'compile'),
+      modules: 'common'
     },
     min: {
-      src: $(build, 'compile', 'src', '**', '*.js'),
+      src: $(build, 'compile', 'app.js'),
       dest: $(build, 'public', 'js')
+    },
+    bundle: {
+      src: $(build, 'compile', 'main.js'),
+      file: 'app.js',
+      paths: [$(build, 'compile')],
+      dest: $(build, 'compile')
     },
     vendored: {
       src: [
@@ -58,7 +65,6 @@ var config = {
         $(bower, 'json3', 'lib', 'json3.js'),
         $(bower, 'jquery', 'dist', 'jquery.js'),
         $(bower, 'react', 'react.js'),
-        $(bower, 'requirejs', 'require.js'),
         $(bower, 'reqwest', 'reqwest.js'),
         $(bower, 'underscore', 'underscore.js')
       ],

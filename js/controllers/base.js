@@ -1,3 +1,10 @@
+import ActivityLogs from 'requests/activity-logs';
+import Comments from 'requests/comments';
+import Relationships from 'requests/relationships';
+import Sessions from 'requests/sessions';
+import Tabs from 'requests/tabs';
+import Users from 'requests/users';
+
 /**
  * This is the base controller for tabular. It contains methods to lazily load
  * requests and pages, as well as to render views.
@@ -5,37 +12,12 @@
 class Base {
   constructor(io) {
     this.io = io;
-
-    this._requests =
-      this.memoize((key, done) =>
-        require([`requests/${key}`], type => done(new type(this.io.request))));
-
-    this._pages =
-      this.memoize((key, done) =>
-        require([`views/pages/${key}`], done));
-  }
-
-  withRequests(key, callback) {
-    this._requests(key, callback);
-  }
-
-  withPage(key, callback) {
-    this._pages(key, callback);
-  }
-
-  memoize(lookup) {
-    const cache = {};
-
-    return (key, done) => {
-      if (cache[key]) {
-        done(cache[key]);
-      } else {
-        lookup(key, data => {
-          cache[key] = data;
-          done(data);
-        });
-      }
-    };
+    this.logs = new ActivityLogs(io.request);
+    this.comments = new Comments(io.request);
+    this.relationships = new Relationships(io.request);
+    this.sessions = new Sessions(io.request);
+    this.tabs = new Tabs(io.request);
+    this.users = new Users(io.request);
   }
 
   render(page, props) {
@@ -49,24 +31,22 @@ class Base {
         hasPrev: false
       }
     });
-    props.logout = event => {
-      event.preventDefault();
-      this.withRequests('sessions', sessions =>
-        sessions.logout(key, { complete: () => this.io.navigate('/') }));
-    };
 
     if (key === '') {
       props.signedIn = false;
-      this.io.render(type, props);
+      this.io.render(page, props);
     } else {
-      this.withRequests('users', users =>
-        users.loggedIn(key, {
-          success: () => props.signedIn = true,
-          error: () => props.signedIn = false,
-          complete: () =>
-            this.withPage(page, type => this.io.render(type, props))
-        })
-      );
+      this.users.loggedIn(key, {
+        success: () => {
+          props.signedIn = true;
+          props.logout = () =>
+            this.sessions.logout(this.io.getSessionKey(), {
+              complete: () => this.io.navigate('/')
+            });
+        },
+        error: () => props.signedIn = false,
+        complete: () => this.io.render(page, props)
+      });
     }
   }
 }

@@ -19,7 +19,6 @@
     "aviator": "add-rails-style-link-to",
     "reqwest": "~1.1.5",
     "underscore": "~1.8.3",
-    "requirejs": "~2.1.17",
     "cookies-js": "~1.2.1",
     "json3": "~3.3.2",
     "bootstrap": "~3.3.4",

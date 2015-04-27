@@ -1,4 +1,4 @@
-import { Component, createElement, DOM } from 'vendored/react';
+import { Component, createElement, DOM } from 'react';
 
 import Search from 'views/forms/search';
 
@@ -81,7 +81,7 @@ class NavBar extends Component {
     const tree =
       ul({ className: 'nav navbar-nav navbar-right' },
         li({},
-          a({ onClick: logout }, 'Logout')),
+          a({ onClick: logout, href: '/' }, 'Logout')),
         li({},
           a({ className: 'navigate', href: '/a/' }, 'Feed')));
 

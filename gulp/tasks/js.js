@@ -1,7 +1,9 @@
+var browserify = require('browserify');
 var config = require('../config.js').js;
 var gulp = require('gulp');
 var merge = require('merge-stream');
 var minify = require('../util/minify-js.js');
+var source = require('vinyl-source-stream');
 var transpile = require('../util/transpile.js');
 
 /**
@@ -10,10 +12,19 @@ var transpile = require('../util/transpile.js');
 gulp.task('js', ['js:min', 'js:vendored']);
 
 gulp.task('js:compile', function() {
-  return transpile(config.compile.src, config.compile.dest, { modules: 'amd' });
+  return transpile(config.compile.src, config.compile.dest, {
+    modules: config.compile.modules
+  });
 });
 
-gulp.task('js:min', ['js:compile'], function() {
+gulp.task('js:bundle', ['js:compile'], function() {
+  return browserify({ entries: config.bundle.src, paths: config.bundle.paths })
+    .bundle()
+    .pipe(source(config.bundle.file))
+    .pipe(gulp.dest(config.bundle.dest));
+});
+
+gulp.task('js:min', ['js:bundle'], function() {
   return minify(config.min.src, config.min.dest, config.sourceMaps);
 });
 

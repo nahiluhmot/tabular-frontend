@@ -1,4 +1,4 @@
-import { API_ROOT } from 'constants';
+import { API_ROOT } from 'config';
 
 /**
  * This module exports functions for interacting with tabs.

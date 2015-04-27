@@ -1,4 +1,4 @@
-import { Component, createElement, DOM } from 'vendored/react';
+import { Component, createElement, DOM } from 'react';
 
 import NavBar from 'views/navs/nav-bar';
 import Search from 'views/forms/search';

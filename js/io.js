@@ -1,10 +1,10 @@
-import Aviator from 'vendored/aviator';
-import Cookies from 'vendored/cookies';
-import { stringify as toJSON } from 'vendored/json3';
-import { createElement, render, unmountComponentAtNode } from 'vendored/react';
-import { default as request } from 'vendored/reqwest';
+import Aviator from 'aviator';
+import Cookies from 'cookies';
+import { stringify as toJSON } from 'json3';
+import { createElement, render, unmountComponentAtNode } from 'react';
+import { default as request } from 'reqwest';
 
-import Constants from 'constants';
+import Config from 'config';
 
 /**
  * This module exports the IO functions required by the controllers.
@@ -13,29 +13,29 @@ export default {
   /**
    * Get the session key for the logged in user.
    */
-  getSessionKey: () => Cookies.get(Constants.SESSION_KEY_COOKIE) || '',
+  getSessionKey: () => Cookies.get(Config.SESSION_KEY_COOKIE) || '',
 
   /**
    * Navigate to the given route.
    */
-  navigate: (route, params) => window.Aviator.navigate(route, params),
+  navigate: (route, params) => Aviator.navigate(route, params),
 
   /**
    * Make a link to the given route.
    */
-  linkTo: (route, params) => window.Aviator.linkTo(route, params),
+  linkTo: (route, params) => Aviator.linkTo(route, params),
 
   /**
    * Refresh the page.
    */
-  refresh: () => window.Aviator.refresh(),
+  refresh: () => Aviator.refresh(),
 
   /**
    * Send an HTTP request.
    */
   request(options) {
     options.headers = options.headers || {};
-    options.headers[Constants.SESSION_KEY_HEADER] = options.sessionKey;
+    options.headers[Config.SESSION_KEY_HEADER] = options.sessionKey;
     options.headers['Content-Type'] = 'application/json';
     options.success = options.callbacks.success;
     options.error = options.callbacks.error;
@@ -54,7 +54,7 @@ export default {
    */
   render(component, params, callback) {
     const element = createElement(component, params);
-    const node = document.getElementById(Constants.ROOT_ELEMENT_ID);
+    const node = document.getElementById(Config.ROOT_ELEMENT_ID);
 
     unmountComponentAtNode(node);
     return render(element, node, callback);

@@ -1,4 +1,4 @@
-import { Component, DOM } from 'vendored/react';
+import { Component, DOM } from 'react';
 
 const { a, button, div, strong } = DOM;
 

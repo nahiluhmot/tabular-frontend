@@ -1,5 +1,8 @@
 import Base from 'controllers/base';
 
+import Edit from 'views/pages/authenticated/edit';
+import Feed from 'views/pages/authenticated/feed';
+
 /**
  * This is the controller reserved for authenticated users.
  */
@@ -18,15 +21,14 @@ class Authenticated extends Base {
     const key = this.io.getSessionKey();
 
     this.whenAuthenticated((key, user) =>
-      this.render('authenticated/feed', {
+      this.render(Feed, {
         user: user,
         edit: () => this.io.navigate('/a/edit'),
         getPage: (page, done) =>
-          this.withRequests('activity-logs', logs =>
-            logs.frontpage(key, page, {
-              success: done,
-              error: done([])
-            })),
+          this.logs.frontpage(key, page, {
+            success: done,
+            error: done([])
+          }),
       }));
   }
 
@@ -36,13 +38,11 @@ class Authenticated extends Base {
    */
   edit() {
     this.whenAuthenticated((key, { username }) => {
-      this.render('authenticated/edit', {
+      this.render(Edit, {
         changePassword: (password, confirmation, callbacks) =>
-          this.withRequests('users', users =>
-            users.updatePassword(key, password, confirmation, callbacks)),
+          this.users.updatePassword(key, password, confirmation, callbacks),
         login: (password, callbacks) =>
-          this.withRequests('sessions', sessions =>
-            sessions.login(username, password, callbacks)),
+          this.sessions.login(username, password, callbacks),
         success: () => this.io.navigate('/a/')
       });
     });
@@ -51,11 +51,10 @@ class Authenticated extends Base {
   whenAuthenticated(callback) {
     const key = this.io.getSessionKey();
 
-    this.withRequests('users', users =>
-      users.loggedIn(key, {
-        success: user => callback(key, user),
-        error: () => this.io.navigate('/')
-      }));
+    this.users.loggedIn(key, {
+      success: user => callback(key, user),
+      error: () => this.io.navigate('/')
+    });
   }
 }
 

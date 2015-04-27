@@ -1,5 +1,7 @@
-import Aviator from 'vendored/aviator';
+import Aviator from 'aviator';
 import Routes from 'routes';
 
-window.Aviator.setRoutes(Routes);
-window.Aviator.dispatch();
+window.onload = () => {
+  Aviator.setRoutes(Routes);
+  Aviator.dispatch();
+};

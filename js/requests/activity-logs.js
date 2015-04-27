@@ -1,4 +1,4 @@
-import { API_ROOT } from 'constants';
+import { API_ROOT } from 'config';
 
 /**
  * This class has methods for interacting with activity logs.
