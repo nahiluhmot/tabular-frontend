@@ -1,6 +1,7 @@
 var browserify = require('browserify');
 var config = require('../config.js').js;
 var gulp = require('gulp');
+var logError = require('../util/log-error.js');
 var merge = require('merge-stream');
 var minify = require('../util/minify-js.js');
 var source = require('vinyl-source-stream');
@@ -21,6 +22,7 @@ gulp.task('js:bundle', ['js:compile'], function() {
   return browserify({ entries: config.bundle.src, paths: config.bundle.paths })
     .bundle()
     .pipe(source(config.bundle.file))
+    .on('error', logError)
     .pipe(gulp.dest(config.bundle.dest));
 });
 
