@@ -5,28 +5,26 @@ import NavBar from 'views/navs/nav-bar';
 const { div, h1, p } = DOM;
 
 /**
- * This class represents the not found page for users.
+ * This class represents the not found page for tabs.
  */
 class NotFound extends Component {
   /**
    * Create a new NotFound page.
-   *
-   * Props:
-   *   - username: Username that could not be found
    */
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { username } = this.props;
+    const { id } = this.props;
     const tree =
       div({},
         createElement(NavBar, this.props),
-        div({ className: 'container center' },
-          h1({}, 'User Not Found'),
+        div({ className: 'container center centered-text' },
+          h1({}, 'Tab Not Found'),
           p({ className: 'lead' },
-            `We could not find any user with this username: ${username}`)));
+            'It is possible that the user that uploaded this tab may have ',
+            'deleted it.')));
     return tree;
   }
 }

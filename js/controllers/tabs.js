@@ -2,11 +2,11 @@ import { MAX_SEARCH_RESULTS_PER_PAGE } from 'config';
 import Base from 'controllers/base';
 
 import SearchResults from 'views/pages/tabs/search-results';
+import TabNotFound from 'views/pages/tabs/not-found';
 
 // import EditTab from 'views/pages/tabs/edit';
 // import NewTab from 'views/pages/tabs/new';
 // import ShowTab from 'views/pages/tabs/show';
-// import TabNotFound from 'views/pages/tabs/not-found';
 
 /**
  * This controller displays pages related to tabs.
