@@ -1,5 +1,5 @@
 import { Component, createElement, DOM } from 'react';
-import _ from 'underscore';
+import { compact, extend, map, values } from 'underscore';
 
 import Username from 'views/inputs/username';
 import Password from 'views/inputs/password';
@@ -10,7 +10,6 @@ import validatePassword from 'validators/password';
 import validateConfirmation from 'validators/confirmation';
 
 const { button, div, form } = DOM;
-const { compact, extend, map, values } = window._;
 
 /**
  * This class represents the SignUp form.

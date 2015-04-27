@@ -1,5 +1,5 @@
 import { Component, createElement, DOM } from 'react';
-import _ from 'underscore';
+import { extend, identity, omit, pairs, pick, size } from 'underscore';
 
 import Password from 'views/inputs/password';
 import Confirmation from 'views/inputs/confirmation';
@@ -8,7 +8,6 @@ import validatePassword from 'validators/password';
 import validateConfirmation from 'validators/confirmation';
 
 const { button, div, form, input, label } = DOM;
-const { extend, identity, omit, pairs, pick, size } = window._;
 
 /**
  * This form is used to change a logged in user's password.
