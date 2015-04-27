@@ -55,7 +55,7 @@ class Show extends Component {
                   p({ key: idx }, line)))),
 
           // Comments header
-          (((comments.length === 0) || (typeof loggedIn === 'object')) ?
+          (((comments.length === 0) && (typeof loggedIn !== 'object')) ?
             null :
             div({ className: 'row centered-text' },
               h2({}, 'Comments'))),
