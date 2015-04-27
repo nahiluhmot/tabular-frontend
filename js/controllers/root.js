@@ -30,12 +30,6 @@ class Root extends Base {
     });
   }
 
-  logout() {
-    this.sessions.logout(this.io.getSessionKey(), {
-      complete: () => this.io.navigate('/')
-    });
-  }
-
   signUp() {
     this.render(SignUp, {
       createUser: (username, password, confirmation, callbacks) =>
