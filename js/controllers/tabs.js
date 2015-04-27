@@ -93,7 +93,35 @@ class Tabs extends Base {
     const { id } = namedParams;
 
     this.tabs.readTab(id, {
-      success: tab => this.render(ShowTab, { tab: tab }),
+      success: tab => {
+        const props = { id: id };
+        const key = this.io.getSessionKey();
+
+        this.users.loggedIn(key, {
+          success: ({ username }) => {
+            props.loggedIn = {
+              createComment: (body, callbacks) =>
+                this.comments.create(key, id, body, callbacks),
+              destroyComment: (id, callbacks) =>
+                this.comments.destroy(key, id, callbacks),
+              updateComment: (id, body, callbacks) =>
+                this.comments.update(key, id, body, callbacks),
+              ownsComment: comment => comment.user.username === username
+            };
+
+            if (username === tab.user.username) {
+              props.owner = {
+                editTab: () =>
+                  this.io.navigate(`/tabs/${id}/edit/`),
+                destroyTab: callbacks =>
+                  this.tabs.destroyTab(key, id, callbacks),
+              };
+            }
+          },
+
+          complete: () => this.render(ShowTab, props)
+        });
+      },
       error: () => this.render(TabNotFound, { id: id })
     });
   }
