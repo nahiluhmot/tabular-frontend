@@ -1,11 +1,11 @@
 import { MAX_SEARCH_RESULTS_PER_PAGE } from 'config';
 import Base from 'controllers/base';
 
+import NewTab from 'views/pages/tabs/new';
 import SearchResults from 'views/pages/tabs/search-results';
 import TabNotFound from 'views/pages/tabs/not-found';
 
 // import EditTab from 'views/pages/tabs/edit';
-// import NewTab from 'views/pages/tabs/new';
 // import ShowTab from 'views/pages/tabs/show';
 
 /**
@@ -79,12 +79,9 @@ class Tabs extends Base {
    * to the home page if they are not.
    */
   newTab() {
-    console.log('Navigating to the new tab page');
-
-    whenAuthenticated('/', (key, user) =>
+    this.whenAuthenticated('/', (key, user) =>
       this.render(NewTab, {
         save: (data, callbacks) => this.tabs.createTab(key, data, callbacks),
-        cancel: () => this.io.navigate('/a/'),
         success: ({ id }) => this.io.navigate(`/tabs/${id}/`)
       }));
   }
@@ -108,7 +105,7 @@ class Tabs extends Base {
   edit({ namedParams }) {
     const { id } = namedParams;
 
-    whenAuthenticated(`/tabs/${id}/`, (key, user) =>
+    this.whenAuthenticated(`/tabs/${id}/`, (key, user) =>
       this.readTab(id, {
         success: tab => {
           if (tab.user.username === user.username) {
@@ -116,9 +113,7 @@ class Tabs extends Base {
               tab: tab,
               save: (data, callbacks) =>
                 this.tabs.updateTab(key, id, data, callbacks),
-              destroy: () => this.tabs.destroyTab(key, id, callbacks),
-              onSave: () => this.io.navigate(`/tabs/${id}/`),
-              onDestroy: () => this.io.navigate('/a/')
+              success: () => this.io.navigate(`/tabs/${id}/`),
             });
           } else {
             this.io.navigate(`/tabs/${id}/`);

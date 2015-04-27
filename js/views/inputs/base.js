@@ -15,13 +15,14 @@ class Base extends Component {
    *   - placeholder: Placeholder text for the input.
    *   - type:        Input type field.
    *   - className:   Optional CSS class name.
+   *   - value:       Optional default value.
    */
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { onChange, placeholder, type, className } = this.props;
+    const { onChange, placeholder, type, className, value } = this.props;
 
     return (
       div({ className: className ? `form-group ${className}` : 'form-group' },
@@ -30,6 +31,7 @@ class Base extends Component {
           type: type,
           className: 'form-control',
           placeholder: placeholder,
+          value: value,
           onChange: onChange
         })
       )

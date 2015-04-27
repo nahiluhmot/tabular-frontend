@@ -24,6 +24,7 @@ class Authenticated extends Base {
       this.render(Feed, {
         user: user,
         edit: () => this.io.navigate('/a/edit/'),
+        newTab: () => this.io.navigate('/tabs/new/'),
         getPage: (page, done) =>
           this.logs.frontpage(key, page, {
             success: done,

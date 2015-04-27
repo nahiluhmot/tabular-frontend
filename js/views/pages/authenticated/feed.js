@@ -12,9 +12,10 @@ class Feed extends Component {
   /**
    * Create a feed.
    * Props:
-   *   - user: An object containing data about the user; specificy their
-   *           username, followers count, and followees count.
-   *   - edit: Function that navigates to the edit page.
+   *   - user:   An object containing data about the user; specificy their
+   *             username, followers count, and followees count.
+   *   - edit:   Function that navigates to the edit page.
+   *   - newTab: Function that navigates to the new tab page.
    */
   constructor(props) {
     super(props);
@@ -22,7 +23,7 @@ class Feed extends Component {
   }
 
   render() {
-    const { user, edit } = this.props;
+    const { edit, newTab, user } = this.props;
     const { followees_count, followers_count, username } = user;
 
     const followersLink = `/u/${username}/followers/`;
@@ -34,25 +35,31 @@ class Feed extends Component {
         div({ className: 'container center' },
           div({ className: 'row' },
             div({ className: 'col-md-4' },
-              div({ className: 'panel panel-default centered-text' },
-                div({ className: 'panel-heading' },
-                  h2({ className: 'panel-title' }, username)),
-                div({ className: 'panel-body' },
+              div({ className: 'row' },
+                div({ className: 'panel panel-default centered-text' },
+                  div({ className: 'panel-heading' },
+                    h2({ className: 'panel-title' }, username)),
+                  div({ className: 'panel-body' },
+                      div({ className: 'row' },
+                        div({ className: 'col-xs-6' },
+                          a({ className: 'navigate', href: followersLink },
+                            `${followers_count} Followers`)),
+                        div({ className: 'col-xs-6' },
+                          a({ className: 'navigate', href: followingLink },
+                            `${followees_count} Following`)))),
+                  div({ className: 'panel-footer' },
                     div({ className: 'row' },
                       div({ className: 'col-xs-6' },
-                        a({ className: 'navigate', href: followersLink },
-                          `${followers_count} Followers`)),
+                        a({ className: 'navigate', href: `/u/${username}/` },
+                          'View Profile')),
                       div({ className: 'col-xs-6' },
-                        a({ className: 'navigate', href: followingLink },
-                          `${followees_count} Following`)))),
-                div({ className: 'panel-footer' },
-                  div({ className: 'row' },
-                    div({ className: 'col-xs-6' },
-                      a({ className: 'navigate', href: `/u/${username}/` },
-                        'View Profile')),
-                    div({ className: 'col-xs-6' },
-                      a({ className: 'navigate', href: '/a/edit' },
-                        'Change Password')))))),
+                        a({ className: 'navigate', href: '/a/edit' },
+                          'Change Password')))))),
+              div({ className: 'row' },
+                button({
+                  className: 'btn btn-default pull-right',
+                  onClick: newTab
+                }, 'Upload a Tab'))),
             div({ className: 'col-md-8' },
               createElement(FeedList, this.props)))));
 
