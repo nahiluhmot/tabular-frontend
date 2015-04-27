@@ -23,15 +23,14 @@ class Authenticated extends Base {
     this.whenAuthenticated((key, user) =>
       this.render(Feed, {
         user: user,
-        edit: () => this.io.navigate('/a/edit'),
+        edit: () => this.io.navigate('/a/edit/'),
         getPage: (page, done) =>
           this.logs.frontpage(key, page, {
             success: done,
-            error: done([])
+            error: () => done([])
           }),
       }));
   }
-
 
   /**
    * Render the feed for authenticated users.
