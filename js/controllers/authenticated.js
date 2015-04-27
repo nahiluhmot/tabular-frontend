@@ -20,7 +20,7 @@ class Authenticated extends Base {
   feed() {
     const key = this.io.getSessionKey();
 
-    this.whenAuthenticated((key, user) =>
+    this.whenAuthenticated('/', (key, user) =>
       this.render(Feed, {
         user: user,
         edit: () => this.io.navigate('/a/edit/'),
@@ -36,7 +36,7 @@ class Authenticated extends Base {
    * Render the feed for authenticated users.
    */
   edit() {
-    this.whenAuthenticated((key, { username }) => {
+    this.whenAuthenticated('/', (key, { username }) => {
       this.render(Edit, {
         changePassword: (password, confirmation, callbacks) =>
           this.users.updatePassword(key, password, confirmation, callbacks),
@@ -44,15 +44,6 @@ class Authenticated extends Base {
           this.sessions.login(username, password, callbacks),
         success: () => this.io.navigate('/a/')
       });
-    });
-  }
-
-  whenAuthenticated(callback) {
-    const key = this.io.getSessionKey();
-
-    this.users.loggedIn(key, {
-      success: user => callback(key, user),
-      error: () => this.io.navigate('/')
     });
   }
 }

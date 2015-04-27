@@ -49,6 +49,15 @@ class Base {
       });
     }
   }
+
+  whenAuthenticated(redirect, callback) {
+    const key = this.io.getSessionKey();
+
+    this.users.loggedIn(key, {
+      success: user => callback(key, user),
+      error: () => this.io.navigate(redirect)
+    });
+  }
 }
 
 export default Base;
