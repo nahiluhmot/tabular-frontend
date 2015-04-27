@@ -20,13 +20,18 @@ class Search extends Component {
   }
 
   render() {
-    const { className, search } = this.props;
+    const { search } = this.props;
     const { query } = this.state;
     const inputProps = {
       type: 'text',
       className: 'form-control',
       placeholder:  'Search',
-      onChange: event => this.setState({ query: event.target.value })
+      onChange: event => this.setState({ query: event.target.value }),
+      onKeyUp: event => {
+        if (event.keyCode === 13) {
+          search(query);
+        }
+      }
     };
     const buttonProps = {
       className: 'btn btn-default',
@@ -37,7 +42,7 @@ class Search extends Component {
       }
     };
     const tree =
-      div({ className: this.props.className },
+      div({ className: 'form-group' },
         div({ className: 'input-group' },
           input(inputProps),
           span({ className: 'input-group-btn' },

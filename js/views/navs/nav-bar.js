@@ -57,8 +57,7 @@ class NavBar extends Component {
     const tree =
       div({ className: 'collapse navbar-collapse', id: COLLAPSE_ID },
         form({ className: 'nav navbar-form navbar-left', role: 'Search' },
-          div({ className: 'form-group' },
-            createElement(Search, { search: search }))),
+          createElement(Search, { search: search })),
         signedIn ? this.signedInRight() : this.signedOutRight());
 
     return tree;
@@ -68,9 +67,9 @@ class NavBar extends Component {
     const tree =
       ul({ className: 'nav navbar-nav navbar-right' },
         li({},
-          a({ className: 'navigate', href: '/login' }, 'Login')),
+          a({ className: 'navigate', href: '/login/' }, 'Login')),
         li({},
-          a({ className: 'navigate', href: '/sign-up' }, 'Sign Up')));
+          a({ className: 'navigate', href: '/sign-up/' }, 'Sign Up')));
 
     return tree;
   }
