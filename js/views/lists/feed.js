@@ -87,7 +87,7 @@ class Feed extends Component {
         div({ className: 'panel-heading' },
           a({ className: 'navigate', href: `/u/${username}/` }, username),
           ' posted a comment on a ',
-          a({ className: 'navigate', href: `/tab/${tab.id}/` }, 'tab'),
+          a({ className: 'navigate', href: `/tabs/${tab.id}/` }, 'tab'),
           ' by ',
           a({ className: 'navigate', href: `/u/${tabUsername}/` }, tabUsername)),
         div({ className: 'panel-body' }, body));

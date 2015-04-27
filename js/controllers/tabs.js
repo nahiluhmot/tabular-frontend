@@ -4,9 +4,8 @@ import Base from 'controllers/base';
 import NewTab from 'views/pages/tabs/new';
 import EditTab from 'views/pages/tabs/edit';
 import SearchResults from 'views/pages/tabs/search-results';
+import ShowTab from 'views/pages/tabs/show';
 import TabNotFound from 'views/pages/tabs/not-found';
-
-// import ShowTab from 'views/pages/tabs/show';
 
 /**
  * This controller displays pages related to tabs.
@@ -94,27 +93,31 @@ class Tabs extends Base {
 
     this.tabs.readTab(id, {
       success: tab => {
-        const props = { id: id };
+        const props = { tab: tab };
         const key = this.io.getSessionKey();
 
         this.users.loggedIn(key, {
           success: ({ username }) => {
             props.loggedIn = {
-              createComment: (body, callbacks) =>
-                this.comments.create(key, id, body, callbacks),
-              destroyComment: (id, callbacks) =>
-                this.comments.destroy(key, id, callbacks),
-              updateComment: (id, body, callbacks) =>
-                this.comments.update(key, id, body, callbacks),
-              ownsComment: comment => comment.user.username === username
+              username: username,
+              createComment: body =>
+                this.comments.create(key, id, body, {
+                  complete: () => this.io.refresh()
+                }),
+              destroyComment: id =>
+                this.comments.destroy(key, id, {
+                  complete: () => this.io.refresh()
+                })
             };
 
             if (username === tab.user.username) {
               props.owner = {
                 editTab: () =>
                   this.io.navigate(`/tabs/${id}/edit/`),
-                destroyTab: callbacks =>
-                  this.tabs.destroyTab(key, id, callbacks),
+                destroyTab: () =>
+                  this.tabs.destroyTab(key, id, {
+                    complete: () => this.io.navigate('/a/')
+                  }),
               };
             }
           },

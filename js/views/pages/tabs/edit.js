@@ -6,7 +6,7 @@ import NavBar from 'views/navs/nav-bar';
 const { div, h1, p } = DOM;
 
 /**
- * This class represents the page where users may enter new tabs..
+ * This class represents the page where users may enter new tabs.
  */
 class Edit extends Component {
   /**
