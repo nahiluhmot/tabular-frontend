@@ -23,7 +23,7 @@ class Base {
   render(page, props) {
     const key = this.io.getSessionKey();
     props = props || {};
-    props.search = query => this.io.navigate('/search', {
+    props.search = query => this.io.navigate('/tabs/', {
       queryParams: {
         query: query,
         page: 1,

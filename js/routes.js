@@ -9,7 +9,6 @@ export default {
   '/': 'home',
   '/login': 'login',
   '/sign-up': 'signUp',
-  '/search': 'search',
   '/a': {
     target: new Authenticated(IO),
     '/': 'feed',
@@ -23,6 +22,7 @@ export default {
   },
   '/tabs': {
     target: new Tabs(IO),
+    '/': 'search',
     '/new': 'newTab',
     '/:id/': 'show',
     '/:id/edit/': 'edit'
