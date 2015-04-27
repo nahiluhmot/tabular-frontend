@@ -1,9 +1,8 @@
 import Authenticated from 'controllers/authenticated';
 import Root from 'controllers/root';
 import Users from 'controllers/users';
+import Tabs from 'controllers/tabs';
 import IO from 'io';
-
-// import Tabs from 'controllers/tabs';
 
 export default {
   target: new Root(IO),
@@ -21,11 +20,11 @@ export default {
     '/': 'feed',
     '/followers': 'followers',
     '/following': 'following'
+  },
+  '/tabs': {
+    target: new Tabs(IO),
+    '/new': 'newTab',
+    '/:id/': 'show',
+    '/:id/edit/': 'edit'
   }
-  // '/tabs': {
-  //   target: new Tabs(IO),
-  //   '/new': 'new',
-  //   '/:id/': 'show',
-  //   '/:id/edit/': 'edit'
-  // }
 };
