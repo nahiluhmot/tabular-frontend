@@ -33,9 +33,8 @@ class Feed extends Component {
     const followingLink = `/u/${username}/following/`;
 
     const buttonProps = {
-      disabled: !loggedIn,
       className: 'btn-default panel-footer',
-      onClick: loggedIn ? (isFollowing ? unfollow : follow) : null
+      onClick: isFollowing ? unfollow : follow
     };
 
     const buttonText = (loggedIn && isFollowing) ? 'Unfollow' : 'Follow';
@@ -57,7 +56,7 @@ class Feed extends Component {
                       div({ className: 'col-xs-6' },
                         a({ className: 'navigate', href: followingLink },
                           `${followees_count} Following`)))),
-                div(buttonProps, buttonText))),
+                loggedIn ? div(buttonProps, buttonText) : null)),
             div({ className: 'col-md-8' },
               createElement(FeedList, this.props)))));
 
