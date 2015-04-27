@@ -3,6 +3,11 @@ import Base from 'controllers/base';
 
 import SearchResults from 'views/pages/tabs/search-results';
 
+// import EditTab from 'views/pages/tabs/edit';
+// import NewTab from 'views/pages/tabs/new';
+// import ShowTab from 'views/pages/tabs/show';
+// import TabNotFound from 'views/pages/tabs/not-found';
+
 /**
  * This controller displays pages related to tabs.
  */
@@ -75,6 +80,13 @@ class Tabs extends Base {
    */
   newTab() {
     console.log('Navigating to the new tab page');
+
+    whenAuthenticated('/', (key, user) =>
+      this.render(NewTab, {
+        save: (data, callbacks) => this.tabs.createTab(key, data, callbacks),
+        cancel: () => this.io.navigate('/a/'),
+        success: ({ id }) => this.io.navigate(`/tabs/${id}/`)
+      }));
   }
 
   /**
@@ -82,7 +94,11 @@ class Tabs extends Base {
    */
   show({ namedParams }) {
     const { id } = namedParams;
-    console.log(`Showing tab with id ${id}`);
+
+    this.tabs.readTab(id, {
+      success: tab => this.render(ShowTab, { tab: tab }),
+      error: () => this.render(TabNotFound, { id: id })
+    });
   }
 
   /**
@@ -91,7 +107,25 @@ class Tabs extends Base {
    */
   edit({ namedParams }) {
     const { id } = namedParams;
-    console.log(`Editing tab with id ${id}`);
+
+    whenAuthenticated(`/tabs/${id}/`, (key, user) =>
+      this.readTab(id, {
+        success: tab => {
+          if (tab.user.username === user.username) {
+            this.io.render(EditTab, {
+              tab: tab,
+              save: (data, callbacks) =>
+                this.tabs.updateTab(key, id, data, callbacks),
+              destroy: () => this.tabs.destroyTab(key, id, callbacks),
+              onSave: () => this.io.navigate(`/tabs/${id}/`),
+              onDestroy: () => this.io.navigate('/a/')
+            });
+          } else {
+            this.io.navigate(`/tabs/${id}/`);
+          }
+        },
+        error: this.render(TabNotFound, { id: id })
+      }));
   }
 }
 
