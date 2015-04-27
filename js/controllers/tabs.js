@@ -2,10 +2,10 @@ import { MAX_SEARCH_RESULTS_PER_PAGE } from 'config';
 import Base from 'controllers/base';
 
 import NewTab from 'views/pages/tabs/new';
+import EditTab from 'views/pages/tabs/edit';
 import SearchResults from 'views/pages/tabs/search-results';
 import TabNotFound from 'views/pages/tabs/not-found';
 
-// import EditTab from 'views/pages/tabs/edit';
 // import ShowTab from 'views/pages/tabs/show';
 
 /**
@@ -106,7 +106,7 @@ class Tabs extends Base {
     const { id } = namedParams;
 
     this.whenAuthenticated(`/tabs/${id}/`, (key, user) =>
-      this.readTab(id, {
+      this.tabs.readTab(id, {
         success: tab => {
           if (tab.user.username === user.username) {
             this.io.render(EditTab, {

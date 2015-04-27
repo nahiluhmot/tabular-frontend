@@ -37,7 +37,7 @@ class EditTab extends Component {
   }
 
   render() {
-    const { artist, album, title, body } = this.props;
+    const { artist, album, title, body } = this.state;
     const errorMessage = this.errorMessage();
     const buttonProps = {
       className: 'btn btn-primary',
@@ -105,8 +105,6 @@ class EditTab extends Component {
 
   save() {
     const { save, success } = this.props;
-
-    console.log(this.state);
 
     if (this.validate() === null) {
       save(pick(this.state, 'artist', 'album', 'title', 'body'), {

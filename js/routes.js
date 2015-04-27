@@ -24,7 +24,9 @@ export default {
     target: new Tabs(IO),
     '/': 'search',
     '/new': 'newTab',
-    '/:id': 'show',
-    '/:id/edit': 'edit'
+    '/:id': {
+      '/': 'show',
+      '/edit': 'edit'
+    }
   }
 };
