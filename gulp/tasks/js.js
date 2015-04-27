@@ -2,7 +2,6 @@ var browserify = require('browserify');
 var config = require('../config.js').js;
 var gulp = require('gulp');
 var logError = require('../util/log-error.js');
-var merge = require('merge-stream');
 var minify = require('../util/minify-js.js');
 var source = require('vinyl-source-stream');
 var transpile = require('../util/transpile.js');
