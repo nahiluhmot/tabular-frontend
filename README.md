@@ -51,8 +51,8 @@ Opening port `http://localhost:1337/` in your browser should display the home pa
 
 ## Directory Structure
 
-Directory            | Checked In? | Description
----------------------|-------------|------------
+Directory           | Checked In? | Description
+--------------------|-------------|------------
 `bower_components/` | No          | Frontend dependencies installed by `bower`
 `build/`            | No          | Directory where built assets live
 `gulp/`             | Yes         | Holds the `gulp` tasks and configuration, which are essentially asynchronous build scripts
