@@ -115,7 +115,9 @@ class ChangePassword extends Component {
             success: success,
             error: error => {
               this.setState({
-                'Current Password': 'cannot be changed at this time'
+                errors: {
+                  'Current Password': 'cannot be changed at this time'
+                }
               });
             }})),
       error: () =>
