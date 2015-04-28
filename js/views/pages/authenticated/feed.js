@@ -57,7 +57,7 @@ class Feed extends Component {
                           'Change Password')))))),
               div({ className: 'row' },
                 button({
-                  className: 'btn btn-default pull-right',
+                  className: 'btn btn-primary full-button',
                   onClick: newTab
                 }, 'Upload a Tab'))),
             div({ className: 'col-md-8' },

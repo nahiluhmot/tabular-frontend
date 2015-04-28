@@ -33,7 +33,7 @@ class Feed extends Component {
     const followingLink = `/u/${username}/following/`;
 
     const buttonProps = {
-      className: 'btn-default panel-footer',
+      className: `btn-${isFollowing ? 'danger' : 'primary'}  panel-footer`,
       onClick: isFollowing ? unfollow : follow
     };
 

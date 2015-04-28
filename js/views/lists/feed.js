@@ -34,7 +34,7 @@ class Feed extends Component {
   render() {
     const { disabled, items } = this.state;
     const buttonProps = {
-      className: 'btn btn-default full-button',
+      className: 'btn btn-primary full-button',
       disabled: disabled,
       onClick: () => this.getNextPage()
     };
