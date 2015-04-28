@@ -66,7 +66,7 @@ class SignUp extends Component {
 
   submitButton() {
     const options = {
-      className: 'btn btn-primary',
+      className: 'btn btn-primary full-button',
       onClick: event => this.createUser(event)
     };
 
