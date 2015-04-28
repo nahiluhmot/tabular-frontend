@@ -56,7 +56,9 @@ class Feed extends Component {
                       div({ className: 'col-xs-6' },
                         a({ className: 'navigate', href: followingLink },
                           `${followees_count} Following`)))),
-                loggedIn ? div(buttonProps, buttonText) : null)),
+               (loggedIn && (loggedIn !== username)) ?
+                 div(buttonProps, buttonText) :
+                 null)),
             div({ className: 'col-md-8' },
               createElement(FeedList, this.props)))));
 

@@ -51,7 +51,17 @@ class Users extends Base {
             props.loggedIn = false;
             props.isFollowing = false;
           },
-          complete: () => this.render(Feed, props)
+          complete: () => {
+            if (props.loggedIn) {
+              this.users.loggedIn(key, {
+                success: ({ username }) => props.loggedIn = username,
+                error: () => props.loggedIn = false,
+                complete: () => this.render(Feed, props)
+              });
+            } else {
+              this.render(Feed, props);
+            }
+          }
         });
       },
       error: ex => this.render(NotFound, { username: username })
