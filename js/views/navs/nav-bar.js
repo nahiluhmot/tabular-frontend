@@ -81,7 +81,7 @@ class NavBar extends Component {
     const tree =
       ul({ className: 'nav navbar-nav navbar-right' },
         li({},
-          a({ onClick: logout, href: '/' }, 'Logout')),
+          a({ onClick: logout }, 'Logout')),
         li({},
           a({ className: 'navigate', href: '/a/' }, 'Feed')));
 

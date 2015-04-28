@@ -34,7 +34,8 @@ class Show extends Component {
             div({ className: 'page-header' },
               h1({}, title, ' ',
                 small({}, 'Uploaded by ',
-                  a({ href: `/u/${username}/` }, username),
+                  a({ className: 'navigate', href: `/u/${username}/` },
+                    username),
                   // Feature detect edit/remove buttons.
                   ((typeof owner !== 'object') ?
                     null :
