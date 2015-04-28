@@ -47,7 +47,8 @@ class Search extends Component {
         div({ className: 'input-group' },
           input(inputProps),
           span({ className: 'input-group-btn' },
-            button(buttonProps, 'Search'))));
+            button(buttonProps,
+              span({ className: 'fui-search' })))));
     return tree;
   }
 }
