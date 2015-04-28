@@ -50,6 +50,7 @@
     "json3": "global:JSON3",
     "react": "global:React",
     "reqwest": "global:reqwest",
+    "sweet-alert": "global:swal",
     "underscore": "global:_"
   }
 }

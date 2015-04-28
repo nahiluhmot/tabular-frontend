@@ -66,6 +66,7 @@ var config = {
         $(bower, 'jquery', 'dist', 'jquery.js'),
         $(bower, 'react', 'react.js'),
         $(bower, 'reqwest', 'reqwest.js'),
+        $(bower, 'sweetalert', 'lib', 'sweet-alert.js'),
         $(bower, 'underscore', 'underscore.js')
       ],
       dest: $(build, 'public', 'js', 'vendored')
@@ -79,7 +80,8 @@ var config = {
     },
     vendored: {
       src: [
-        $(bower, 'bootstrap', 'dist', 'css', 'bootstrap.min.css')
+        $(bower, 'bootstrap', 'dist', 'css', 'bootstrap.min.css'),
+        $(bower, 'sweetalert', 'lib', 'sweet-alert.css')
       ],
       dest: $(build, 'public', 'css')
     },
