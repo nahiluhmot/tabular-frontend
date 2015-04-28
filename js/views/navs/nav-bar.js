@@ -23,8 +23,9 @@ class NavBar extends Component {
   }
 
   render() {
+    const navClass = 'navbar navbar-default navbar-fixed-top navbar-inverse';
     const tree =
-      nav({ className: 'navbar navbar-default navbar-fixed-top' },
+      nav({ className: navClass },
         div({ className: 'center container-fluid' },
           this.header(),
           this.collapse()));
