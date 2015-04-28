@@ -73,7 +73,7 @@ var config = {
   },
   less: {
     app: {
-      src: $(less, 'app.less'),
+      src: [$(less, 'app.less')],
       dest: $(build, 'public', 'css'),
       paths: [$(less, 'includes')]
     },
