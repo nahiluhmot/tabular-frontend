@@ -2,7 +2,7 @@ import { Component, createElement, DOM } from 'react';
 
 import NavBar from 'views/navs/nav-bar';
 
-const { a, div, h1 } = DOM;
+const { a, div, h2 } = DOM;
 
 /**
  * This class represents search field and button for tabs.
@@ -28,7 +28,7 @@ class Relationships extends Component {
       div({},
         createElement(NavBar, this.props),
         div({ className: 'container center' },
-          h1({},
+          h2({ className: 'centered-text' },
             'Users ',
             (type === 'following') ? 'following ' : 'followed by ',
             a({ className: 'navigate', href: `/u/${username}/` },
