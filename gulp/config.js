@@ -73,17 +73,31 @@ var config = {
   },
   less: {
     app: {
-      src: $(less, '**', '*.less'),
+      src: $(less, 'app.less'),
       dest: $(build, 'public', 'css'),
       paths: [$(less, 'includes')]
     },
     vendored: {
       src: [
-        $(bower, 'bootstrap', 'dist', 'css', 'bootstrap.min.css'),
-        $(bower, 'flat-ui', 'dist', 'css', 'flat-ui.min.css')
+        $(bower, 'bootstrap', 'dist', 'css', 'bootstrap.min.css')
       ],
       dest: $(build, 'public', 'css')
     },
+    'flat-ui': {
+      copy: {
+        src: [
+          $(bower, 'flat-ui', 'less', '**', '*.less'),
+          $(less, 'variables.less')
+        ],
+        exclude: $(bower, 'flat-ui', 'less', 'variables.less'),
+        dest: $(build, 'less', 'flat-ui')
+      },
+      compile: {
+        src: $(build, 'less', 'flat-ui', 'flat-ui.less'),
+        paths: [],
+        dest: $(build, 'public', 'css')
+      }
+    }
   },
   fonts: {
     vendored: {
