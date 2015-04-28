@@ -17,12 +17,12 @@ class Show extends Component {
    */
   constructor(props) {
     super(props);
-    this.state = { comment: '' };
+    this.state = { comment: '', isCommenting: false };
   }
 
   render() {
     const { tab, loggedIn, owner } = this.props;
-    const { comment } = this.state;
+    const { comment, isCommenting } = this.state;
     const { artist, album, body, comments, id, title, user } = tab;
     const { username } = user;
 
@@ -33,51 +33,72 @@ class Show extends Component {
 
           div({ className: 'row' },
             div({ className: 'col-md-6' },
-              p({ className: 'lead' },
-                'Artist: ',
-                strong({}, artist)),
-              p({ className: 'lead' },
-                'Album: ',
-                strong({}, album)),
-              p({ className: 'lead' },
-                'Title: ',
-                strong({}, title))),
+              div({ className: 'row' },
+                div({ className: 'col-xs-6' },
+                  p({ className: 'lead pull-right' }, 'Artist:')),
+                  p({ className: 'lead' },
+                    strong({}, artist))),
+
+              div({ className: 'row' },
+                div({ className: 'col-xs-6' },
+                  p({ className: 'lead pull-right' }, 'Album:')),
+                  p({ className: 'lead' },
+                    strong({}, album))),
+
+              div({ className: 'row' },
+                div({ className: 'col-xs-6' },
+                  p({ className: 'lead pull-right' }, 'Title:')),
+                  p({ className: 'lead' },
+                    strong({}, title)))),
 
             div({ className: 'col-md-6' },
-              p({ className: 'lead' },
-                'Uploaded by: ',
-                a({ className: 'navigate', href: `/u/${username}/` },
-                  strong({}, username))),
+              div({ className: 'row' },
+                div({ className: 'col-xs-6' },
+                  p({ className: 'lead pull-right' }, 'Uploaded By:')),
+                  p({ className: 'lead' },
+                    a({ className: 'navigate', href: `/u/${username}/` },
+                      strong({}, username)))),
 
                 // Feature detect edit/remove buttons.
                 ((typeof owner !== 'object') ?
                   null :
-                  p({ className: 'lead' },
-                    ' ',
-                    a({ onClick: owner.editTab },
-                      span({ className: 'btn btn-primary' },
-                        'Edit Tab')),
-                    ' ',
-                    a({ onClick: () => this.destroyTab(owner.destroyTab) },
-                      span({ className: 'btn btn-danger' },
-                        'Destroy Tab')))))),
+                  div({ className: 'row' },
+                    div({ className: 'col-xs-6' },
+                      button({
+                        className: 'btn btn-primary full-button',
+                        onClick: owner.editTab
+                      }, 'Edit Tab')),
+                    div({ className: 'col-xs-6' },
+                      button({
+                        className: 'btn btn-danger full-button',
+                        onClick: () => this.destroyTab(owner.destroyTab)
+                      }, 'Destroy Tab')))))),
 
            // Tab body
           div({ className: 'row' },
             div({ className: 'tab-body' },
             map(body.split('\n'), (line, idx) =>
-                (line === '') ?
-                  br({ key: idx }) :
-                  p({ key: idx }, line)))),
+              (line === '') ?
+                br({ key: idx }) :
+                p({ key: idx }, line)))),
 
           // Comments header
           (((comments.length === 0) && (typeof loggedIn !== 'object')) ?
             null :
             div({ className: 'row centered-text' },
-              h2({}, 'Comments'))),
+              p({ className: 'lead' }, 'Comments',
+                (typeof loggedIn !== 'object') ?
+                  null :
+                    a({
+                      onClick: () =>
+                        this.setState({ isCommenting: !isCommenting })
+                    }, ' ',
+                      span({
+                        className: `fui-${isCommenting ? 'cross' : 'plus'}`
+                      }))))),
 
           // Feature detect comment box.
-          ((typeof loggedIn !== 'object') ?
+          (((typeof loggedIn !== 'object') || !isCommenting) ?
             null :
             div({ className: 'form-group' },
               label({}, 'New Comment'),
@@ -87,8 +108,9 @@ class Show extends Component {
                 onChange: event => this.setState({ comment: event.target.value })
               }),
               button({
-                className: 'btn btn-primary',
-                disabled: comment === null,
+                className: 'btn btn-primary full-button',
+                style: { marginTop: '10px' },
+                disabled: comment === '',
                 onClick: event => {
                   event.preventDefault();
                   loggedIn.createComment(comment);
