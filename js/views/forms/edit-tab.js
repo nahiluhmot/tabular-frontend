@@ -75,7 +75,7 @@ class EditTab extends Component {
         div({ className: 'form-group' },
           label({}, 'Body'),
           textarea({
-            className: 'form-control monospace',
+            className: 'form-control tab-body',
             value: body,
             rows: 20,
             onChange: event => this.setState({ body: event.target.value })
