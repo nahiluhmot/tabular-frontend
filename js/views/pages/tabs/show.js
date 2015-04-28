@@ -1,4 +1,5 @@
 import { Component, createElement, DOM } from 'react';
+import swal from 'sweet-alert';
 import { map } from 'underscore';
 
 import NavBar from 'views/navs/nav-bar';
@@ -57,7 +58,7 @@ class Show extends Component {
                       span({ className: 'btn btn-primary' },
                         'Edit Tab')),
                     ' ',
-                    a({ onClick: () => this.destroyTab(owner) },
+                    a({ onClick: () => this.destroyTab(owner.destroyTab) },
                       span({ className: 'btn btn-danger' },
                         'Destroy Tab')))))),
 
@@ -119,6 +120,24 @@ class Show extends Component {
         div({ className: 'panel-body' }, body));
 
     return tree;
+  }
+
+  destroyTab(request) {
+    swal({
+      title: 'Are you sure you want to delete this tab?',
+      text: 'You will not be able to recover it once it has been deleted',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#c0392b',
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      closeOnConfirm: true,
+      closeOnCancel: true
+    }, confirmed => {
+      if (confirmed) {
+        request();
+      }
+    });
   }
 }
 
