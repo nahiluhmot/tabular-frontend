@@ -61,8 +61,8 @@ class Tabs extends Base {
             query: query,
             results: data,
             navigateToTab: id => this.io.navigate(`/tabs/${id}/`),
-            next: hasNext ? nextLink : null,
-            prev: (page > 1) ? prevLink(true) : null
+            next: hasNext ? () => this.io.navigate(nextLink) : null,
+            prev: (page > 1) ?  () => this.io.navigate(prevLink(true)) : null
           });
         }
       },

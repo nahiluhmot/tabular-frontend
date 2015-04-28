@@ -2,7 +2,8 @@ import { Component, createElement, DOM } from 'react';
 
 import NavBar from 'views/navs/nav-bar';
 
-const { a, button, div, h1, li, p, ul, table, tr, td, tbody, thead } = DOM;
+const { a, button, div, h3, i, li, p, span, table, tr, td, tbody, thead } = DOM;
+const { ul } = DOM;
 
 /**
  * This page renders the search results.
@@ -44,25 +45,36 @@ class SearchResults extends Component {
       div({},
         createElement(NavBar, this.props),
         div({ className: 'container center' },
-          h1({ className: 'centered-text' }, `Search Results for: ${query}`),
-          div({ className: 'table-responsive' },
-            table({ className: 'table table-hover' },
-              thead({},
-                td({}, 'Artist'),
-                td({}, 'Album'),
-                td({}, 'Title'),
-                td({}, 'User')),
-              tbody({}, results.map(({ id, artist, title, album, user }) =>
-                tr({ key: id, onClick: () => navigateToTab(id) },
-                  td({}, artist),
-                  td({}, album),
-                  td({}, title),
-                  td({}, user.username)))))),
-          ul({ className: 'pager' },
-            li({ disabled: prev === null },
-               a({ href: prev }, 'Previous')),
-            li({ disabled: next === null },
-               a({ href: next }, 'Next')))));
+          div({ className: 'row' },
+            h3({ className: 'centered-text' }, `Search Results for: ${query}`)),
+          div({ className: 'row' },
+            div({ className: 'table-responsive' },
+              table({ className: 'table table-hover' },
+                thead({},
+                  td({}, 'Artist'),
+                  td({}, 'Album'),
+                  td({}, 'Title'),
+                  td({}, 'User')),
+                tbody({}, results.map(({ id, artist, title, album, user }) =>
+                  tr({
+                    key: id,
+                    className: 'pointy hover-color',
+                    onClick: () => navigateToTab(id)
+                  },
+                    td({}, artist),
+                    td({}, album),
+                    td({}, title),
+                    td({}, user.username))))))),
+          div({ className: 'row text-center' },
+            ul({ className: 'pager' },
+              li({},
+                 a({ onClick: prev },
+                   span({},
+                     i({ className: 'fui-arrow-left' })))),
+              li({},
+                 a({ onClick: next },
+                   span({},
+                     i({ className: 'fui-arrow-right' }))))))));
 
     return tree;
   }
