@@ -7,6 +7,7 @@ import IO from 'io';
 export default {
   target: new Root(IO),
   '/': 'home',
+  '/about': 'about',
   '/login': 'login',
   '/sign-up': 'signUp',
   '/a': {

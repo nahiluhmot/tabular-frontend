@@ -1,5 +1,6 @@
 import Base from 'controllers/base';
 
+import About from 'views/pages/about';
 import Home from 'views/pages/home';
 import Login from 'views/pages/login';
 import SignUp from 'views/pages/sign-up';
@@ -20,6 +21,10 @@ class Root extends Base {
       success: () => this.io.navigate('/a/'),
       error: () => this.render(Home)
     });
+  }
+
+  about() {
+    this.render(About);
   }
 
   login() {
