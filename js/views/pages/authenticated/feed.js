@@ -54,7 +54,7 @@ class Feed extends Component {
                           'View Profile')),
                       div({ className: 'col-xs-6' },
                         a({ className: 'navigate', href: '/a/edit' },
-                          'Change Password')))))),
+                          'Edit Profile')))))),
               div({ className: 'row' },
                 button({
                   className: 'btn btn-primary padded-bottom full-button',

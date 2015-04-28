@@ -7,7 +7,7 @@ import Confirmation from 'views/inputs/confirmation';
 import validatePassword from 'validators/password';
 import validateConfirmation from 'validators/confirmation';
 
-const { button, div, form, input, label } = DOM;
+const { a, div, form, input, label } = DOM;
 
 /**
  * This form is used to change a logged in user's password.
@@ -49,17 +49,24 @@ class ChangePassword extends Component {
       form({},
         isValid ? null : this.errorMessage(errors),
         createElement(Password, {
+          value: this.state.oldPassword,
           onChange: event => this.setState({ oldPassword: event.target.value }),
           label: 'Current Password',
         }),
         createElement(Password, {
+          value: this.state.password,
           onChange: event => this.setState({ password: event.target.value }),
           label: 'New Password',
         }),
         createElement(Confirmation, {
+          value: this.state.confirmation,
           onChange: event => this.setState({ confirmation: event.target.value })
         }),
-        this.submitButton(isValid)
+        div({ className: 'row' },
+          div({ className: 'col-md-6' },
+            this.cancelButton()),
+          div({ className: 'col-md-6' },
+            this.submitButton(isValid)))
       )
     );
   }
@@ -84,14 +91,29 @@ class ChangePassword extends Component {
     }
   }
 
-  submitButton(isValid) {
+  cancelButton() {
     const options = {
-      className: 'btn btn-primary',
-      disabled: isValid ? null : 'disabled',
-      onClick: isValid ? event => this.changePassword(event) : null,
+      className: 'btn btn-warning full-button',
+      onClick: () =>
+        this.setState({
+          oldPassword: '',
+          password: '',
+          confirmation: '',
+          errors: {}
+        })
     };
 
-    return button(options, 'Change Password');
+    return a(options, 'Cancel');
+  }
+
+  submitButton(isValid) {
+    const options = {
+      className: 'btn btn-primary full-button',
+      disabled: isValid ? null : 'disabled',
+      onClick: isValid ? () => this.changePassword() : null,
+    };
+
+    return a(options, 'Change Password');
   }
 
   validate() {
@@ -102,11 +124,9 @@ class ChangePassword extends Component {
     }, identity));
   }
 
-  changePassword(event) {
+  changePassword() {
     const { changePassword: request, login, success } = this.props;
     const { oldPassword, password, confirmation } = this.state;
-
-    event.preventDefault();
 
     login(oldPassword, {
       success: () =>

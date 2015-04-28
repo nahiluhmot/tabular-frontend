@@ -41,6 +41,18 @@ class Authenticated extends Base {
       this.render(Edit, {
         changePassword: (password, confirmation, callbacks) =>
           this.users.updatePassword(key, password, confirmation, callbacks),
+        destroyUser: (password, callbacks) =>
+          this.sessions.login(username, password, {
+            success: () =>
+              this.users.destroyUser(key, {
+                success: () => {
+                  callbacks.success();
+                  this.io.navigate('/');
+                },
+                error: callbacks.error
+              }),
+            error: callbacks.error
+          }),
         login: (password, callbacks) =>
           this.sessions.login(username, password, callbacks),
         success: () => this.io.navigate('/a/')
