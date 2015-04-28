@@ -60,7 +60,6 @@ var config = {
     vendored: {
       src: [
         $(bower, 'aviator', 'aviator.js'),
-        $(bower, 'bootstrap', 'dist', 'js', 'bootstrap.js'),
         $(bower, 'cookies-js', 'dist', 'cookies.js'),
         $(bower, 'flat-ui', 'dist', 'js', 'flat-ui.js'),
         $(bower, 'json3', 'lib', 'json3.js'),
