@@ -41,13 +41,13 @@ class EditTab extends Component {
     const errorMessage = this.errorMessage();
     const cancelProps = {
       className: 'btn btn-warning full-button',
-      onClick: this.props.cancel()
+      onClick: () => this.props.cancel()
     };
 
     const saveProps = {
       className: 'btn btn-primary full-button',
       disabled: errorMessage !== null,
-      onClick: event => this.save()
+      onClick: () => this.save()
     };
 
     const tree =
