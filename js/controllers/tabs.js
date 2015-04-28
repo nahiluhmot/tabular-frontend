@@ -26,9 +26,11 @@ class Tabs extends Base {
 
     this.tabs.searchTabs(query, page, {
       success: data => {
-        const searchLink = params => this.io.linkTo('/tabs/', {
-          queryParams: params
-        });
+        const searchLink = params =>
+          () =>
+            this.io.navigate('/tabs/', {
+              queryParams: params
+            });
 
         const nextLink = searchLink({
           page: page + 1,
@@ -51,9 +53,9 @@ class Tabs extends Base {
           });
 
         if ((page > 1) && (data.length === 0)) {
-          this.io.navigate(prevLink(false));
+          prevLink(false)();
         } else if (page < 1) {
-          this.io.navigate(firstLink);
+          firstLink();
         } else {
           hasNext = hasNext && (data.length === MAX_SEARCH_RESULTS_PER_PAGE);
           this.render(SearchResults, {
@@ -61,8 +63,8 @@ class Tabs extends Base {
             query: query,
             results: data,
             navigateToTab: id => this.io.navigate(`/tabs/${id}/`),
-            next: hasNext ? () => this.io.navigate(nextLink) : null,
-            prev: (page > 1) ?  () => this.io.navigate(prevLink(true)) : null
+            next: hasNext ? () => nextLink() : null,
+            prev: (page > 1) ?  () => prevLink(true)() : null
           });
         }
       },

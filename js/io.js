@@ -21,11 +21,6 @@ export default {
   navigate: (route, params) => Aviator.navigate(route, params),
 
   /**
-   * Make a link to the given route.
-   */
-  linkTo: (route, params) => Aviator.linkTo(route, params),
-
-  /**
    * Refresh the page.
    */
   refresh: () => Aviator.refresh(),
