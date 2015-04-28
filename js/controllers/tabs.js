@@ -69,6 +69,7 @@ class Tabs extends Base {
       error: error => {
         console.log(`Error searching tabs for query: ${query}`);
         console.log(error);
+        this.io.navigate('/');
       }
     });
   }
@@ -81,6 +82,7 @@ class Tabs extends Base {
     this.whenAuthenticated('/', (key, user) =>
       this.render(NewTab, {
         save: (data, callbacks) => this.tabs.createTab(key, data, callbacks),
+        cancel: () => this.io.navigate('/'),
         success: ({ id }) => this.io.navigate(`/tabs/${id}/`)
       }));
   }
@@ -144,7 +146,8 @@ class Tabs extends Base {
               tab: tab,
               save: (data, callbacks) =>
                 this.tabs.updateTab(key, id, data, callbacks),
-              success: () => this.io.navigate(`/tabs/${id}/`),
+              cancel: () => this.io.navigate(`/tabs/${id}/`),
+              success: () => this.io.navigate(`/tabs/${id}/`)
             });
           } else {
             this.io.navigate(`/tabs/${id}/`);

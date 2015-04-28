@@ -3,7 +3,7 @@ import { compact, pick } from 'underscore';
 
 import Input from 'views/inputs/base';
 
-const { button, div, form, label, textarea } = DOM;
+const { a, div, form, label, textarea } = DOM;
 
 /**
  * This class represents a form where the user enters a new tab.
@@ -39,13 +39,15 @@ class EditTab extends Component {
   render() {
     const { artist, album, title, body } = this.state;
     const errorMessage = this.errorMessage();
-    const buttonProps = {
-      className: 'btn btn-primary',
+    const cancelProps = {
+      className: 'btn btn-warning full-button',
+      onClick: this.props.cancel()
+    };
+
+    const saveProps = {
+      className: 'btn btn-primary full-button',
       disabled: errorMessage !== null,
-      onClick: event => {
-        event.preventDefault();
-        this.save();
-      }
+      onClick: event => this.save()
     };
 
     const tree =
@@ -80,7 +82,11 @@ class EditTab extends Component {
             rows: 20,
             onChange: event => this.setState({ body: event.target.value })
           })),
-        button(buttonProps, 'Save'));
+        div({ className: 'row' },
+          div({ className: 'col-xs-6' },
+            a(cancelProps, 'Cancel')),
+          div({ className: 'col-xs-6' },
+            a(saveProps, 'Save'))));
 
       return tree;
   }
