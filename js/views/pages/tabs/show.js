@@ -3,7 +3,8 @@ import { map } from 'underscore';
 
 import NavBar from 'views/navs/nav-bar';
 
-const { a, br, button, div, h1, h2, label, p, small, span, textarea } = DOM;
+const { a, br, button, div, h1, h2, label, p, small, strong, span } = DOM;
+const { textarea } = DOM;
 
 /**
  * This class shows a tab and its comments.
@@ -29,23 +30,36 @@ class Show extends Component {
         createElement(NavBar, this.props),
         div({ className: 'container center' },
 
-          // Header
           div({ className: 'row' },
-            div({ className: 'page-header' },
-              h1({}, title, ' ',
-                small({}, 'Uploaded by ',
-                  a({ className: 'navigate', href: `/u/${username}/` },
-                    username),
-                  // Feature detect edit/remove buttons.
-                  ((typeof owner !== 'object') ?
-                    null :
-                    div({ className: 'pull-right' },
-                      ' ',
-                      a({ onClick: owner.editTab },
-                        span({ className: 'glyphicon glyphicon-cog' })),
-                      ' ',
-                      a({ onClick: () => this.destroyTab(owner) },
-                        span({ className: 'glyphicon glyphicon-remove' })))))))),
+            div({ className: 'col-md-6' },
+              p({ className: 'lead' },
+                'Artist: ',
+                strong({}, artist)),
+              p({ className: 'lead' },
+                'Album: ',
+                strong({}, album)),
+              p({ className: 'lead' },
+                'Title: ',
+                strong({}, title))),
+
+            div({ className: 'col-md-6' },
+              p({ className: 'lead' },
+                'Uploaded by: ',
+                a({ className: 'navigate', href: `/u/${username}/` },
+                  strong({}, username))),
+
+                // Feature detect edit/remove buttons.
+                ((typeof owner !== 'object') ?
+                  null :
+                  p({ className: 'lead' },
+                    ' ',
+                    a({ onClick: owner.editTab },
+                      span({ className: 'btn btn-primary' },
+                        'Edit Tab')),
+                    ' ',
+                    a({ onClick: () => this.destroyTab(owner) },
+                      span({ className: 'btn btn-danger' },
+                        'Destroy Tab')))))),
 
            // Tab body
           div({ className: 'row' },
@@ -101,7 +115,7 @@ class Show extends Component {
             div({ className: 'pull-right' },
               ' ',
               a({ onClick: () => loggedIn.destroyComment(id) },
-                span({ className: 'glyphicon glyphicon-remove' }))))),
+                span({ className: 'fui-cross-circle' }))))),
         div({ className: 'panel-body' }, body));
 
     return tree;

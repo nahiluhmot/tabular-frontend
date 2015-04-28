@@ -44,9 +44,7 @@ class NavBar extends Component {
       div({ className: 'navbar-header' },
         button(buttonAttributes,
           span({ className: 'sr-only' }, 'Toggle navigation'),
-          span({ className: 'icon-bar' }),
-          span({ className: 'icon-bar' }),
-          span({ className: 'icon-bar' })),
+          span({ className: 'fui-list' })),
         a({ className: 'navbar-brand navigate', href: '/' }, 'Tabular'));
 
     return tree;
