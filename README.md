@@ -1,8 +1,8 @@
 # Tabular Frontend
 
 This repository is the frontend for my final project for NU CS 4550 Web Development.
-It is a single page application built primarily using [React](https://https://facebook.github.io/react/), [Bower](http://bower.io/), [Gulp](http://gulpjs.com/), and [Aviator](https://github.com/swipely/aviator).
-The styling is done using [Bootstrap](http://getbootstrap.com/) and [Flat UI](http://designmodo.github.io/Flat-UI/) for easy scaffolding.
+It is a single page application built primarily using [React](https://facebook.github.io/react/), [Bower](http://bower.io/), [Gulp](http://gulpjs.com/), and [Aviator](https://github.com/swipely/aviator).
+The styling is done using [Bootstrap](http://getbootstrap.com/) and [Flat UI](http://designmodo.github.io/Flat-UI/).
 
 The backend for this project is [also hosted on GitHub](https://github.com/nahiluhmot/tabular-backend/).
 
@@ -20,7 +20,7 @@ $ bower install
 $ gulp serve
 ```
 
-Then, open `http://localhost:3000` in your browser, and you should see the home page.
+Then, open `http://localhost:3000/` in your browser, and you should see the home page.
 
 ## Production Builds
 
@@ -47,7 +47,7 @@ $ docker run \
   tabular-frontend:latest
 ```
 
-Opening port `http://localhost:1337` in your browser should display the home page.
+Opening port `http://localhost:1337/` in your browser should display the home page.
 
 ## Directory Structure
 
