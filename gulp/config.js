@@ -62,6 +62,7 @@ var config = {
         $(bower, 'aviator', 'aviator.js'),
         $(bower, 'bootstrap', 'dist', 'js', 'bootstrap.js'),
         $(bower, 'cookies-js', 'dist', 'cookies.js'),
+        $(bower, 'flat-ui', 'dist', 'js', 'flat-ui.js'),
         $(bower, 'json3', 'lib', 'json3.js'),
         $(bower, 'jquery', 'dist', 'jquery.js'),
         $(bower, 'react', 'react.js'),
@@ -80,14 +81,17 @@ var config = {
     vendored: {
       src: [
         $(bower, 'bootstrap', 'dist', 'css', 'bootstrap.min.css'),
-        $(bower, 'bootstrap', 'dist', 'css', 'bootstrap-theme.min.css')
+        $(bower, 'flat-ui', 'dist', 'css', 'flat-ui.min.css')
       ],
       dest: $(build, 'public', 'css')
     },
   },
   fonts: {
     vendored: {
-      src: $(bower, 'bootstrap', 'dist', 'fonts', '**', '*'),
+      src: [
+        $(bower, 'bootstrap', 'dist', 'fonts', '**', '*'),
+        $(bower, 'flat-ui', 'dist', 'fonts', '**', '*')
+      ],
       dest: $(build, 'public', 'fonts')
     }
   },
