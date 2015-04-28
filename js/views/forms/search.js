@@ -34,6 +34,7 @@ class Search extends Component {
       }
     };
     const buttonProps = {
+      type: 'button',
       className: 'btn btn-default',
       disabled: (query === '') ? 'disabled' : null,
       onClick: event => {
